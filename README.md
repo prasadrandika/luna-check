@@ -16,10 +16,10 @@ Each finding in the report includes its source link.
 ## Install
 
 ```bash
-pip install luna-check
+pip install git+https://github.com/prasadrandika/luna-check@v0.1.0
 ```
 
-It needs Python 3.9 or newer, has no dependencies, and works on Windows, macOS and Linux.
+It needs Python 3.9 or newer and Git, has no dependencies, and works on Windows, macOS and Linux. It is not on PyPI yet.
 
 ## Use
 
