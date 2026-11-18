@@ -1,0 +1,161 @@
+luna-check 0.1.0: scanned 966 file(s) in before
+
+agents/books/llm.go
+  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+  line 127  HIGH  LC004  Function tools on /chat/completions need reasoning_effort "none" on gpt-6-luna
+      Function tools are sent to /chat/completions with no reasoning_effort. gpt-6-luna "supports function calling only with `reasoning_effort` set to `none`" on Chat Completions.
+      Fix: Send reasoning_effort "none" with gpt-6-luna, or move to the Responses API.
+      Source: https://developers.openai.com/api/docs/models/gpt-6-luna
+
+agents/crewai/src/agent.py
+  line 140  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o" points to the dated snapshot(s) gpt-4o-2024-08-06, gpt-4o-2024-11-20, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+
+agents/doc-reader/main.py
+  line 181  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+
+agents/github/llm.go
+  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+  line 127  HIGH  LC004  Function tools on /chat/completions need reasoning_effort "none" on gpt-6-luna
+      Function tools are sent to /chat/completions with no reasoning_effort. gpt-6-luna "supports function calling only with `reasoning_effort` set to `none`" on Chat Completions.
+      Fix: Send reasoning_effort "none" with gpt-6-luna, or move to the Responses API.
+      Source: https://developers.openai.com/api/docs/models/gpt-6-luna
+
+agents/hackernews/llm.go
+  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+  line 127  HIGH  LC004  Function tools on /chat/completions need reasoning_effort "none" on gpt-6-luna
+      Function tools are sent to /chat/completions with no reasoning_effort. gpt-6-luna "supports function calling only with `reasoning_effort` set to `none`" on Chat Completions.
+      Fix: Send reasoning_effort "none" with gpt-6-luna, or move to the Responses API.
+      Source: https://developers.openai.com/api/docs/models/gpt-6-luna
+
+agents/langchain/src/agent.py
+  line 42  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o" points to the dated snapshot(s) gpt-4o-2024-08-06, gpt-4o-2024-11-20, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+  line 44  UNCONFIRMED  LC003  Sampling parameter sent (not confirmed for gpt-6-luna)
+      "temperature" is set. OpenAI's GPT-6.2 migration guide says to omit temperature, top_p, logprobs and top_logprobs on Chat Completions. Not confirmed for gpt-6-luna: its model page does not say.
+      Fix: Test this request against gpt-6-luna before shipping.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md
+
+agents/summarizer/src/agent_executor.py
+  line 30  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+  line 76  UNCONFIRMED  LC003  Sampling parameter sent (not confirmed for gpt-6-luna)
+      "temperature" is set. OpenAI's GPT-6.2 migration guide says to omit temperature, top_p, logprobs and top_logprobs on Chat Completions. Not confirmed for gpt-6-luna: its model page does not say.
+      Fix: Test this request against gpt-6-luna before shipping.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md
+
+agents/translator/src/agent_executor.py
+  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+  line 170  HIGH  LC004  Function tools on /chat/completions need reasoning_effort "none" on gpt-6-luna
+      Function tools are sent to /chat/completions with no reasoning_effort. gpt-6-luna "supports function calling only with `reasoning_effort` set to `none`" on Chat Completions.
+      Fix: Send reasoning_effort "none" with gpt-6-luna, or move to the Responses API.
+      Source: https://developers.openai.com/api/docs/models/gpt-6-luna
+  line 174  UNCONFIRMED  LC003  Sampling parameter sent (not confirmed for gpt-6-luna)
+      "temperature" is set. OpenAI's GPT-6.2 migration guide says to omit temperature, top_p, logprobs and top_logprobs on Chat Completions. Not confirmed for gpt-6-luna: its model page does not say.
+      Fix: Test this request against gpt-6-luna before shipping.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md
+
+agents/weather/llm.go
+  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+  line 127  HIGH  LC004  Function tools on /chat/completions need reasoning_effort "none" on gpt-6-luna
+      Function tools are sent to /chat/completions with no reasoning_effort. gpt-6-luna "supports function calling only with `reasoning_effort` set to `none`" on Chat Completions.
+      Fix: Send reasoning_effort "none" with gpt-6-luna, or move to the Responses API.
+      Source: https://developers.openai.com/api/docs/models/gpt-6-luna
+
+ui/scripts/seed-trace-usage.ts
+  line 369  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 379  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 380  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 383  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 383  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 386  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 387  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 396  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+
+ui/shared/mocks/src/chat.ts
+  line 190  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 236  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+
+ui/shared/mocks/src/chatStore.ts
+  line 382  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+
+ui/shared/mocks/src/events.ts
+  line 41  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 42  LOW  LC001  "gpt-4.1-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+
+ui/shared/mocks/src/handlers.ts
+  line 627  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 628  LOW  LC001  "gpt-4.1-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+
+ui/shared/mocks/src/overview.ts
+  line 238  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 508  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+
+ui/shared/mocks/src/router.ts
+  line 81  UNCONFIRMED  LC003  Sampling parameter sent (not confirmed for gpt-6-luna)
+      "temperature" is set. OpenAI's GPT-6.2 migration guide says to omit temperature, top_p, logprobs and top_logprobs on Chat Completions. Not confirmed for gpt-6-luna: its model page does not say.
+      Fix: Test this request against gpt-6-luna before shipping.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md
+  line 106  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 107  UNCONFIRMED  LC003  Sampling parameter sent (not confirmed for gpt-6-luna)
+      "temperature" is set. OpenAI's GPT-6.2 migration guide says to omit temperature, top_p, logprobs and top_logprobs on Chat Completions. Not confirmed for gpt-6-luna: its model page does not say.
+      Fix: Test this request against gpt-6-luna before shipping.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md
+  line 114  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 115  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 116  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 117  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 118  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 124  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 126  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 157  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 180  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 223  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 224  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 225  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 343  UNCONFIRMED  LC003  Sampling parameter sent (not confirmed for gpt-6-luna)
+      "temperature" is set. OpenAI's GPT-6.2 migration guide says to omit temperature, top_p, logprobs and top_logprobs on Chat Completions. Not confirmed for gpt-6-luna: its model page does not say.
+      Fix: Test this request against gpt-6-luna before shipping.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md
+  line 387  UNCONFIRMED  LC003  Sampling parameter sent (not confirmed for gpt-6-luna)
+      "temperature" is set. OpenAI's GPT-6.2 migration guide says to omit temperature, top_p, logprobs and top_logprobs on Chat Completions. Not confirmed for gpt-6-luna: its model page does not say.
+      Fix: Test this request against gpt-6-luna before shipping.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md
+
+ui/shared/mocks/src/seed.ts
+  line 88  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 89  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+
+ui/shared/mocks/src/tryRun.ts
+  line 49  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+
+LOW = seed, demo, mock or sample file. Sources:
+  LC001  https://developers.openai.com/api/docs/deprecations
+
+Found 14 high, 33 low, 7 unconfirmed in 18 file(s).
+
+Need help migrating? github.com/prasadrandika

@@ -1,0 +1,16 @@
+luna-check 0.1.0: scanned 2 file(s) in before
+
+app.py
+  line 43  HIGH  LC002  tiktoken.encoding_for_model() raises KeyError for gpt-6-luna
+      Called with "gpt-4o-mini". tiktoken has no entry for "gpt-6-luna", so after the switch this raises KeyError (checked with tiktoken 0.7.0 and 0.14.0).
+      Fix: Catch the error and fall back to get_encoding("o200k_base"), the encoding tiktoken uses for gpt-4o, gpt-4o-mini, gpt-4.1 and gpt-4.1-mini.
+      Source: https://github.com/openai/tiktoken/blob/main/tiktoken/model.py
+  line 73  HIGH  LC001  Model shuts down on Jan 14, 2027
+      "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
+      Fix: Use "gpt-6-luna" (or read the model name from config).
+      Source: https://developers.openai.com/api/docs/deprecations
+
+Found 2 high, 0 low in 1 file(s).
+Run with --strict to also list temperature/top_p settings (not confirmed for gpt-6-luna).
+
+Need help migrating? github.com/prasadrandika

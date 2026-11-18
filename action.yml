@@ -1,0 +1,35 @@
+name: luna-check
+description: Find code that breaks when GPT-4o / GPT-4o mini / GPT-4.1 / GPT-4.1 mini shut down on Jan 14, 2027.
+branding:
+  icon: moon
+  color: blue
+
+inputs:
+  path:
+    description: Folder to scan.
+    default: "."
+  strict:
+    description: Also report temperature/top_p settings (not confirmed for gpt-6-luna).
+    default: "false"
+  fail:
+    description: Fail the job when high-severity problems are found.
+    default: "true"
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+    - shell: bash
+      run: python -m pip install --quiet "$GITHUB_ACTION_PATH"
+    - shell: bash
+      env:
+        LC_PATH: ${{ inputs.path }}
+        LC_STRICT: ${{ inputs.strict }}
+        LC_FAIL: ${{ inputs.fail }}
+      run: |
+        args=("$LC_PATH")
+        [ "$LC_STRICT" = "true" ] && args+=(--strict)
+        [ "$LC_FAIL" = "true" ] || args+=(--exit-zero)
+        luna-check "${args[@]}"

@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "luna-check"
+dynamic = ["version"]
+description = "Find code that breaks when GPT-4o, GPT-4o mini, GPT-4.1 and GPT-4.1 mini shut down in the OpenAI API on Jan 14, 2027."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "prasadrandika" }]
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["openai", "gpt-4o", "gpt-4.1", "gpt-6-luna", "deprecation", "migration", "linter"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Topic :: Software Development :: Quality Assurance",
+]
+
+[project.urls]
+Homepage = "https://github.com/prasadrandika/luna-check"
+
+[project.scripts]
+luna-check = "luna_check.cli:main"
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+
+[tool.setuptools.dynamic]
+version = { attr = "luna_check.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
