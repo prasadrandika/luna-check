@@ -96,4 +96,4 @@ MIT
 
 ---
 
-Need help migrating? [github.com/prasadrandika](https://github.com/prasadrandika)
+Need help migrating? [github.com/prasadrandika](https://github.com/prasadrandika) · Hire me: [prasadrandika.github.io](https://prasadrandika.github.io)
