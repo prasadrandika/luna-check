@@ -35,9 +35,10 @@ def test_retiring_ids_are_found(tmp_path, model):
 
 
 @pytest.mark.parametrize("model", [
-    "gpt-4o-mini-search-preview", "gpt-4o-realtime-preview", "gpt-4o-audio-preview",
-    "gpt-4.1-nano", "gpt-4o-transcribe", "gpt-4o-2024-05-13", "gpt-4", "gpt-4-turbo",
-    "gpt-6-luna", "GPT-4o",
+    # Not listed on any deprecation page (only its dated snapshot is).
+    "gpt-4o-mini-search-preview",
+    # Current models, and a different spelling.
+    "gpt-6-luna", "gpt-6.1-sol", "claude-sonnet-5-5", "gemini-3.8-flash", "GPT-4o",
 ])
 def test_other_models_are_not_found(tmp_path, model):
     write(tmp_path, "a.py", f'MODEL = "{model}"\n')
@@ -225,7 +226,7 @@ def test_python_no_tools(tmp_path):
 
 
 def test_tools_ignored_when_file_names_no_relevant_model(tmp_path):
-    write(tmp_path, "a.py", 'client.chat.completions.create(model="o3", messages=m, tools=T)\n')
+    write(tmp_path, "a.py", 'client.chat.completions.create(model="gpt-6.1-sol", messages=m, tools=T)\n')
     assert hits(tmp_path) == []
 
 
@@ -415,7 +416,9 @@ def test_json_report(tmp_path, capsys):
 
 def test_every_rule_cites_an_official_source():
     for rule in rules.ALL_RULES:
-        assert rule.source.startswith(("https://developers.openai.com/", "https://github.com/openai/"))
+        assert rule.source.startswith((
+            "https://developers.openai.com/", "https://github.com/openai/", "https://platform.claude.com/",
+        ))
 
 
 def test_messages_paraphrase_instead_of_quoting(tmp_path):

@@ -27,11 +27,11 @@ def test_go_catalog_is_low(tmp_path):
         package m
 
         var known = []string{
-            "gpt-3.5-turbo",
+            "gpt-6-astra",
             "gpt-4o",
             "gpt-4o-mini",
-            "gpt-5",
-            "o3",
+            "gpt-6.1-sol",
+            "gpt-6-sol",
         }
 
         const defaultModel = "gpt-4o-mini"
@@ -45,18 +45,18 @@ def test_go_catalog_is_low(tmp_path):
 
 def test_python_and_js_catalogs_are_low(tmp_path):
     write(tmp_path, "allowed.py", '''
-        ALLOWED_MODELS = {"gpt-4o", "gpt-4.1", "gpt-5", "claude-sonnet-4-5"}
-        SUPPORTED = ("gpt-4o-mini", "gpt-4.1-mini", "o3-mini", "gemini-2.5-pro")
+        ALLOWED_MODELS = {"gpt-4o", "gpt-4.1", "gpt-6.1-sol", "claude-sonnet-5-5"}
+        SUPPORTED = ("gpt-4o-mini", "gpt-4.1-mini", "gpt-6.1-terra", "gemini-3.8-flash")
     ''')
     write(tmp_path, "models.ts", '''
-        export const MODELS = ["gpt-4o", "gpt-4o-mini", "gpt-5", "gpt-6-luna"];
+        export const MODELS = ["gpt-4o", "gpt-4o-mini", "gpt-6.1-sol", "gpt-6-luna"];
     ''')
     assert {h[3] for h in hits(tmp_path)} == {"low"}
     assert len(hits(tmp_path)) == 6
 
 
 def test_catalog_entries_say_why_they_are_low(tmp_path):
-    write(tmp_path, "m.ts", 'const MODELS = ["gpt-4o", "gpt-4.1", "gpt-5", "o3"];\n')
+    write(tmp_path, "m.ts", 'const MODELS = ["gpt-4o", "gpt-4.1", "gpt-6.1-sol", "gpt-6-sol"];\n')
     findings, _ = scan(tmp_path)
     assert [f.low_reason for f in findings] == ["model list", "model list"]
     assert "list of many model names" in findings[0].message
@@ -79,10 +79,25 @@ def test_nested_lists_are_counted_separately(tmp_path):
     write(tmp_path, "tiers.py", '''
         TIERS = [
             ["gpt-4o", "gpt-4o-mini"],
-            ["gpt-5", "o3"],
+            ["gpt-6.1-sol", "gpt-6-sol"],
         ]
     ''')
     assert {h[3] for h in hits(tmp_path)} == {"high"}
+
+
+def test_list_of_records_is_a_catalog(tmp_path):
+    # One model name per record, as in Nasiko's ui/shared/features/src/overview/preview.ts.
+    write(tmp_path, "models.ts", '''
+        const MODELS = [
+          ['claude-sonnet-5-5', 0],
+          ['gpt-6.1-sol', 1],
+          ['gpt-5', 1],
+          ['gpt-6-luna', 1],
+        ] as const
+        const ROWS = [{ id: "gpt-4o", n: 1 }, { id: "gpt-6-sol" }, { id: "o3" }, { id: "gpt-6-luna" }]
+    ''')
+    assert {h[3] for h in hits(tmp_path)} == {"low"}
+    assert len(hits(tmp_path)) == 3
 
 
 def test_prose_strings_do_not_make_a_catalog(tmp_path):
@@ -172,8 +187,8 @@ def test_yaml_model_list_is_low(tmp_path):
         allowed_models:
           - gpt-4o
           - gpt-4.1
-          - gpt-5
-          - o3
+          - gpt-6.1-sol
+          - gpt-6-sol
         default_model: gpt-4o-mini
     ''')
     assert hits(tmp_path) == [
@@ -189,7 +204,7 @@ def test_json(tmp_path):
           "model": "gpt-4o-2024-08-06",
           "title": "gpt-4o",
           "agent": {"llm_model": "gpt-4.1"},
-          "models": ["gpt-4o", "gpt-4.1", "gpt-5", "claude-sonnet-4-5"],
+          "models": ["gpt-4o", "gpt-4.1", "gpt-6.1-sol", "claude-sonnet-5-5"],
           "model_name": "gpt-6-luna"
         }
     ''')
@@ -219,12 +234,13 @@ def test_toml(tmp_path):
         supported_models = [
           "gpt-4o",
           "gpt-4.1",
-          "gpt-5",
-          "o3",
+          "gpt-6.1-sol",
+          "gpt-6-sol",
         ]
     ''')
     assert hits(tmp_path) == [
         ("app.toml", 2, "LC001", "high"),
+        ("app.toml", 3, "LC001", "high"),  # gpt-4o-2024-05-13 was shut down Oct 23, 2026
         ("app.toml", 5, "LC001", "low"),
         ("app.toml", 6, "LC001", "low"),
     ]

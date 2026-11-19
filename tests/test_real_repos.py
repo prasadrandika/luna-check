@@ -99,14 +99,19 @@ def test_after_is_clean(repo, repo_dir):
 # grafana/ai-sdk (Apache-2.0) lists every OpenAI model ID it knows in a catalog,
 # knownResponsesModelIDs. The file is copied unchanged from commit
 # 9bf9d0b98913942d3438f616be308c77bbe9b016. Nothing there is the model the SDK
-# sends, so the nine retiring IDs in it are LOW, not HIGH.
-GRAFANA_CATALOG_LINES = {139, 140, 141, 142, 145, 147, 148, 151, 152}
+# sends, so every retired or retiring ID in it is LOW, not HIGH. The file also
+# tests a model name as a prefix (strings.HasPrefix(modelID, "gpt-4")), which
+# is not a model in use.
+GRAFANA_JAN14_LINES = {139, 140, 141, 142, 145, 147, 148, 151, 152}
+GRAFANA_CATALOG = range(136, 216)  # the knownResponsesModelIDs list
 
 
 def test_model_catalog_is_low():
     findings, _ = scan(REAL / "grafana-ai-sdk")
-    assert {(f.path, f.line, f.rule.id) for f in findings} == {
-        ("providers/openai/models.go", line, "LC001") for line in GRAFANA_CATALOG_LINES
-    }
+    lines = {f.line for f in findings}
+    assert {f.path for f in findings} == {"providers/openai/models.go"}
+    assert {f.rule.id for f in findings} == {"LC001"}
+    assert GRAFANA_JAN14_LINES <= lines
+    assert all(line in GRAFANA_CATALOG for line in lines)
     assert {f.severity for f in findings} == {"low"}
     assert {f.low_reason for f in findings} == {"model list"}

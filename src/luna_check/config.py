@@ -11,8 +11,8 @@ import bisect
 import re
 from pathlib import Path
 
-from . import rules
-from .checks import ANY_MODEL_RE, CATALOG_MIN, CATALOG_NOTE, PRICE_RE, Finding, retiring_ids
+from . import models, rules
+from .checks import ANY_MODEL_RE, CATALOG_MIN, PRICE_RE, model_finding
 
 ENV, YAML, JSON, TOML = "env", "yaml", "json", "toml"
 
@@ -218,6 +218,7 @@ def _pairs(text: str, kind: str):
 def check_config(text: str, path: str, kind: str) -> list:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
     lines = text.split("\n")
+    context = models.platforms_in(text)
     pairs = [p for p in _pairs(text, kind) if is_model_key(p[1])]
     names = {}
     for _, _, value, group in pairs:
@@ -231,22 +232,16 @@ def check_config(text: str, path: str, kind: str) -> list:
             continue
         if PRICE_RE.search(lines[line - 1] if 0 < line <= len(lines) else ""):
             continue
-        for _, model in retiring_ids(value):
+        for _, model in models.catalog().find(value):
             if (line, model) in seen:
                 continue
+            rep = models.describe(model, context)
+            if rep is None:
+                continue
             seen.add((line, model))
-            f = Finding(
-                path,
-                line,
-                rules.MODEL_ID,
-                rules.HIGH,
-                rules.model_message(model) + f' (Config key "{key}".)',
-                f'Set {key} to "{rules.REPLACEMENT}".',
-            )
-            if group in catalogs:
-                f.severity = rules.LOW
-                f.low_reason = CATALOG_NOTE
-                f.message += " (One entry in a list of many model names, so lower priority.)"
-                f.fix = f'Remove it from the list, or add "{rules.REPLACEMENT}" if the list is missing it.'
+            f = model_finding(path, line, rep, group in catalogs)
+            f.message += f' (Config key "{key}".)'
+            if f.severity == rules.HIGH and rep.replacement and " or " not in rep.replacement:
+                f.fix = f'Set {key} to "{rep.replacement}".'
             out.append(f)
     return out

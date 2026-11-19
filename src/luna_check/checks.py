@@ -1,11 +1,11 @@
-"""The four checks. Each takes a lexed file and returns findings."""
+"""The checks. Each takes a lexed file and returns findings."""
 
 from __future__ import annotations
 
 import re
 from dataclasses import dataclass
 
-from . import rules
+from . import models, rules
 from .lexer import GO, JS, PY, Lexed
 
 
@@ -18,6 +18,8 @@ class Finding:
     message: str
     fix: str
     low_reason: str = ""  # why a finding is LOW, shown in the short report line
+    source: str = ""  # overrides rule.source (LC001: the page that lists this model)
+    short: str = ""  # one-line summary for LOW report lines
 
     def to_dict(self) -> dict:
         return {
@@ -28,13 +30,13 @@ class Finding:
             "severity": self.severity,
             "message": self.message,
             "fix": self.fix,
-            "source": self.rule.source,
+            "source": self.source or self.rule.source,
             "low_reason": self.low_reason,
         }
 
 
-# A retiring alias, optionally followed by a date. Not preceded or followed by
-# characters that would make it a different model, such as gpt-4o-mini-search-preview.
+# The four OpenAI models that move to gpt-6-luna on Jan 14, 2027. LC002, LC003
+# and LC004 are about that migration, so they look only at files naming these.
 MODEL_RE = re.compile(
     r"(?<![\w.-])(gpt-4o-mini|gpt-4\.1-mini|gpt-4o|gpt-4\.1)(-\d{4}-\d{2}-\d{2})?(?![\w.-])"
 )
@@ -43,7 +45,7 @@ LUNA_RE = re.compile(r"(?<![\w.-])gpt-6-luna(?![\w.])")
 
 
 def retiring_ids(s: str):
-    """Yield (match, model_id) for every retiring model ID in s."""
+    """Yield (match, model_id) for every Jan 14, 2027 OpenAI model ID in s."""
     for m in MODEL_RE.finditer(s):
         full = m.group(0)
         if m.group(2) and full not in rules.DATED_IDS:
@@ -72,16 +74,19 @@ def is_relevant(lx: Lexed) -> bool:
 # Any model name, from any provider. Used only to count how many model names
 # sit together in one list or map, so a catalog is not mistaken for a setting.
 ANY_MODEL_RE = re.compile(
-    r"(?i)^(?:[\w.-]+/)?(?:gpt-|chatgpt-|o[1-9](?:-|$)|claude-|gemini-|text-embedding-|"
-    r"text-davinci|davinci|babbage|dall-e|whisper-|tts-|codex-|llama|mistral|mixtral|"
-    r"command-|deepseek|qwen|grok-|sonar)[\w.:-]*$"
+    r"(?i)^(?:[\w.-]+/)?(?:[a-z0-9-]+\.){0,2}(?:gpt-|chatgpt-|o[1-9](?:-|$)|claude-|gemini-|"
+    r"text-embedding-|text-davinci|davinci|babbage|dall-e|whisper-|tts-|codex-|llama|mistral|"
+    r"mixtral|command-|deepseek|qwen|grok-|sonar|imagen-|veo-|gemma|nova-|jamba|titan-)[\w.:@-]*$"
 )
 CATALOG_MIN = 4  # model names in one list/map before it counts as a catalog
 CATALOG_NOTE = "model list"
 
 
-def _innermost_containers(lx: Lexed) -> dict:
-    """Map each string's start offset to the offset of its innermost open bracket."""
+def _innermost_containers(lx: Lexed, parents: dict = None) -> dict:
+    """Map each string's start offset to the offset of its innermost open bracket.
+
+    If `parents` is given, it is filled with each bracket's enclosing bracket.
+    """
     starts = sorted(lit.start for lit in lx.strings)
     out = {}
     stack = []
@@ -92,6 +97,8 @@ def _innermost_containers(lx: Lexed) -> dict:
             out[starts[si]] = stack[-1] if stack else None
             si += 1
         if ch in "([{":
+            if parents is not None:
+                parents[i] = stack[-1] if stack else None
             stack.append(i)
         elif ch in ")]}" and stack:
             stack.pop()
@@ -104,21 +111,33 @@ def _innermost_containers(lx: Lexed) -> dict:
 def catalog_containers(lx: Lexed) -> tuple:
     """(catalog bracket offsets, innermost bracket of each string).
 
-    A catalog is a list or map holding CATALOG_MIN or more distinct model names.
+    A catalog is a list or map holding CATALOG_MIN or more distinct model names,
+    either directly ["a", "b", ...] or as one name per record
+    [["a", 0], ["b", 1], ...] / [{"id": "a"}, {"id": "b"}, ...].
     """
-    where = _innermost_containers(lx)
+    parents = {}
+    where = _innermost_containers(lx, parents)
     counts = {}
     for lit in lx.strings:
         c = where.get(lit.start)
         if c is not None and not lit.docstring and ANY_MODEL_RE.match(lit.value):
-            counts.setdefault(c, set()).add(lit.value)
-    return {c for c, names in counts.items() if len(names) >= CATALOG_MIN}, where
+            counts.setdefault(c, []).append(lit.value)
+    catalogs = {c for c, names in counts.items() if len(set(names)) >= CATALOG_MIN}
+    records = {}  # parent bracket -> {record bracket: its one model name}
+    for c, names in counts.items():
+        if len(names) == 1 and parents.get(c) is not None:
+            records.setdefault(parents[c], {})[c] = names[0]
+    for recs in records.values():
+        if len(set(recs.values())) >= CATALOG_MIN:
+            catalogs.update(recs)
+    return catalogs, where
 
 
 def check_model_ids(lx: Lexed, path: str, skip_lines: set) -> list:
     out = []
     seen = set()  # one finding per model per line
     catalogs, where = catalog_containers(lx)
+    context = models.platforms_in(lx.source)
     for lit in lx.strings:
         if lit.docstring or not lit.value:
             continue
@@ -126,30 +145,51 @@ def check_model_ids(lx: Lexed, path: str, skip_lines: set) -> list:
             continue  # prose, log text, prompts, SQL: not a model ID setting
         if lx.prev_char(lit.start) in "{," and lx.next_char(lit.end) == ":" and lx.prev_char(lit.start):
             continue  # a mapping key, as in a price or context-size table
+        if _is_name_test(lx, lit):
+            continue  # startswith("gpt-4"), "gpt-4" in name: a name test, not a model in use
         in_catalog = where.get(lit.start) in catalogs
         base = _value_offset(lx, lit)
-        for m, model in retiring_ids(lit.value):
-            line = lx.line_of(base + m.start())
+        for start, model in models.catalog().find(lit.value):
+            line = lx.line_of(base + start)
             if line in skip_lines or PRICE_RE.search(lx.line_text(line)) or (line, model) in seen:
                 continue
+            rep = models.describe(model, context)
+            if rep is None:
+                continue
             seen.add((line, model))
-            f = Finding(
-                path,
-                line,
-                rules.MODEL_ID,
-                rules.HIGH,
-                rules.model_message(model),
-                f'Use "{rules.REPLACEMENT}" (or read the model name from config).',
-            )
-            if in_catalog:
-                # A list of many model names (a catalog or allow-list), not the
-                # model this code sends. Worth cleaning up, but not urgent.
-                f.severity = rules.LOW
-                f.low_reason = CATALOG_NOTE
-                f.message += " (One entry in a list of many model names, so lower priority.)"
-                f.fix = f'Remove it from the list, or add "{rules.REPLACEMENT}" if the list is missing it.'
-            out.append(f)
+            out.append(model_finding(path, line, rep, in_catalog))
     return out
+
+
+NAME_TEST_CALL = re.compile(
+    r"(?:startswith|startsWith|HasPrefix|hasPrefix|has_prefix|endswith|endsWith|HasSuffix|"
+    r"hasSuffix|includes|Contains|contains|indexOf|index|find|TrimPrefix|removeprefix)"
+    r"\s*\(\s*(?:[^(),]*,\s*)?[(\[]?\s*(?:[^()]*,\s*)?$"
+)
+
+
+def _is_name_test(lx: Lexed, lit) -> bool:
+    """The string is a prefix/substring pattern checked against a model name."""
+    line_start = lx.code.rfind("\n", 0, lit.start) + 1
+    if NAME_TEST_CALL.search(lx.code[line_start:lit.start]):
+        return True
+    after = lx.code[lit.end:lit.end + 8]
+    return lx.lang == PY and re.match(r"\s*(?:not\s+)?in\b", after) is not None and \
+        lx.prev_char(lit.start) not in "([{,"
+
+
+def model_finding(path: str, line: int, rep, in_catalog: bool) -> Finding:
+    f = Finding(path, line, rules.MODEL_ID, rep.severity, rep.message, rep.fix,
+                rep.low_reason, rep.source, rep.short)
+    if in_catalog and f.severity == rules.HIGH:
+        # A list of many model names (a catalog or allow-list), not the model
+        # this code sends. Worth cleaning up, but not urgent.
+        f.severity = rules.LOW
+        f.low_reason = CATALOG_NOTE
+        f.message += " (One entry in a list of many model names, so lower priority.)"
+        f.fix = "Remove it from the list" + (
+            f', or add "{rep.replacement}" if the list is missing it.' if rep.replacement else ".")
+    return f
 
 
 # --- LC002 ------------------------------------------------------------------
@@ -387,11 +427,17 @@ def check_sampling(lx: Lexed, path: str) -> list:
 
 def run_all(lx: Lexed, path: str, strict: bool = False) -> list:
     # `strict` is kept for compatibility. Since 0.2.0 every rule runs by default.
-    if not is_relevant(lx) and not TIKTOKEN_CALL[lx.lang].search(lx.code):
-        return []
-    tiktoken = check_tiktoken(lx, path)
-    findings = tiktoken + check_model_ids(lx, path, {f.line for f in tiktoken})
-    if is_relevant(lx):
+    from .api_checks import check_claude_sampling, check_openai_endpoints
+
+    relevant = is_relevant(lx)
+    tiktoken_lines = {lx.line_of(m.start()) for m in TIKTOKEN_CALL[lx.lang].finditer(lx.code)}
+    # A model name passed to a tokenizer lookup is not an API call, so LC001
+    # skips those lines; LC002 reports the ones that break.
+    findings = check_tiktoken(lx, path) if (relevant or tiktoken_lines) else []
+    findings += check_model_ids(lx, path, tiktoken_lines)
+    if relevant:
         findings += check_chat_tools(lx, path)
         findings += check_sampling(lx, path)
+    findings += check_claude_sampling(lx, path)
+    findings += check_openai_endpoints(lx, path)
     return findings

@@ -1,5 +1,5 @@
 name: luna-check
-description: Find code that breaks when GPT-4o / GPT-4o mini / GPT-4.1 / GPT-4.1 mini shut down on Jan 14, 2027.
+description: Find code that uses retired or retiring AI models and API features (OpenAI, Anthropic, Gemini, Vertex AI, Azure OpenAI, Bedrock).
 branding:
   icon: moon
   color: blue

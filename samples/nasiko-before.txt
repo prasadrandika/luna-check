@@ -1,10 +1,10 @@
-luna-check 0.3.0: scanned 1035 file(s) in before
+luna-check 0.4.0: scanned 1035 file(s) in before
 
 .env.example
   line 70  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (example config)
 
 agents/books/llm.go
-  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 96  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
@@ -14,19 +14,19 @@ agents/books/llm.go
       Source: https://developers.openai.com/api/docs/models/gpt-6-luna
 
 agents/crewai/src/agent.py
-  line 140  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 140  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o" points to the dated snapshot(s) gpt-4o-2024-08-06, gpt-4o-2024-11-20, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
 
 agents/doc-reader/main.py
-  line 181  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 181  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
 
 agents/github/llm.go
-  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 96  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
@@ -35,8 +35,14 @@ agents/github/llm.go
       Fix: Send reasoning_effort "none" with gpt-6-luna, or move to the Responses API.
       Source: https://developers.openai.com/api/docs/models/gpt-6-luna
 
+agents/google-adk/src/agent.py
+  line 33  HIGH  LC001  Model is retired or scheduled to shut down
+      "gemini-2.0-flash" was shut down on Jun 1, 2026 (Gemini API), so requests to it fail. Replace it with "gemini-3.6-flash". On Vertex AI: retired Jun 1, 2026.
+      Fix: Use "gemini-3.6-flash" (or read the model name from config).
+      Source: https://ai.google.dev/gemini-api/docs/deprecations
+
 agents/hackernews/llm.go
-  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 96  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
@@ -46,7 +52,7 @@ agents/hackernews/llm.go
       Source: https://developers.openai.com/api/docs/models/gpt-6-luna
 
 agents/langchain/src/agent.py
-  line 42  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 42  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o" points to the dated snapshot(s) gpt-4o-2024-08-06, gpt-4o-2024-11-20, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
@@ -56,7 +62,7 @@ agents/langchain/src/agent.py
       Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
 agents/summarizer/src/agent_executor.py
-  line 30  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 30  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
@@ -66,7 +72,7 @@ agents/summarizer/src/agent_executor.py
       Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
 agents/translator/src/agent_executor.py
-  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 96  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
@@ -80,7 +86,7 @@ agents/translator/src/agent_executor.py
       Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
 agents/weather/llm.go
-  line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
+  line 96  HIGH  LC001  Model is retired or scheduled to shut down
       "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
@@ -99,6 +105,10 @@ ui/scripts/seed-trace-usage.ts
   line 387  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
   line 396  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
+ui/shared/features/src/overview/preview.ts
+  line 24  LOW  LC001  "gpt-5-codex" shut down on Jul 23, 2026 -> gpt-5.6-sol  (model list)
+  line 25  LOW  LC001  "gpt-5" shuts down on Dec 11, 2026 -> gpt-6.1-sol  (model list)
+
 ui/shared/mocks/src/chat.ts
   line 190  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
   line 236  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
@@ -113,10 +123,13 @@ ui/shared/mocks/src/events.ts
 ui/shared/mocks/src/handlers.ts
   line 627  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
   line 628  LOW  LC001  "gpt-4.1-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 1558  LOW  LC001  "gemini-2.0-flash" shut down on Jun 1, 2026 -> gemini-3.6-flash  (seed/demo file)
 
 ui/shared/mocks/src/overview.ts
   line 238  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
   line 508  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 720  LOW  LC001  "gpt-5-codex" shut down on Jul 23, 2026 -> gpt-5.6-sol  (seed/demo file)
+  line 739  LOW  LC001  "gpt-5-codex" shut down on Jul 23, 2026 -> gpt-5.6-sol  (seed/demo file)
 
 ui/shared/mocks/src/router.ts
   line 106  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
@@ -136,18 +149,23 @@ ui/shared/mocks/src/router.ts
   line 343  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"  (seed/demo file)
   line 387  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"  (seed/demo file)
 
+ui/shared/mocks/src/seed-harness.ts
+  line 85  LOW  LC001  "gpt-5-codex" shut down on Jul 23, 2026 -> gpt-5.6-sol  (seed/demo file)
+
 ui/shared/mocks/src/seed.ts
-  line 88  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
-  line 89  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 88  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (model list)
+  line 89  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (model list)
+  line 91  LOW  LC001  "gemini-2.0-flash" shut down on Jun 1, 2026 -> gemini-3.6-flash  (model list)
 
 ui/shared/mocks/src/tryRun.ts
   line 49  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
-LOW = seed, demo, mock or sample file, example config, or one entry in a list
-      of many model names. Sources:
+LOW = seed, demo, mock or sample file, example config, one entry in a list of
+      many model names, or no shutdown date yet. Sources:
+  LC001  https://ai.google.dev/gemini-api/docs/deprecations
   LC001  https://developers.openai.com/api/docs/deprecations
   LC003  https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
-Found 17 high, 37 low in 19 file(s).
+Found 18 high, 44 low in 22 file(s).
 
 Need help migrating? prasadrandika.github.io

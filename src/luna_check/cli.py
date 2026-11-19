@@ -14,8 +14,8 @@ from .scanner import scan
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(
         prog="luna-check",
-        description="Find code that breaks when GPT-4o, GPT-4o mini, GPT-4.1 and "
-        "GPT-4.1 mini shut down in the OpenAI API on Jan 14, 2027.",
+        description="Find code that uses retired or retiring AI models and API features "
+        "(OpenAI, Anthropic, Gemini API, Vertex AI, Azure OpenAI, Amazon Bedrock).",
     )
     p.add_argument("path", nargs="?", default=".", help="folder or file to scan (default: .)")
     # Kept so existing commands keep working. Since 0.2.0 every rule runs by default.
