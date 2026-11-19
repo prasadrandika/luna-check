@@ -1,4 +1,4 @@
-luna-check 0.2.1: scanned 2 file(s) in before
+luna-check 0.3.0: scanned 3 file(s) in before
 
 app.py
   line 43  HIGH  LC002  tiktoken.encoding_for_model() raises KeyError for gpt-6-luna

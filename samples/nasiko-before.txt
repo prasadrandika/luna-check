@@ -1,4 +1,7 @@
-luna-check 0.2.1: scanned 966 file(s) in before
+luna-check 0.3.0: scanned 1035 file(s) in before
+
+.env.example
+  line 70  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (example config)
 
 agents/books/llm.go
   line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
@@ -87,63 +90,64 @@ agents/weather/llm.go
       Source: https://developers.openai.com/api/docs/models/gpt-6-luna
 
 ui/scripts/seed-trace-usage.ts
-  line 369  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 379  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 380  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 383  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 383  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 386  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 387  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 396  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 369  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 379  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 380  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 383  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 383  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 386  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 387  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 396  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
 ui/shared/mocks/src/chat.ts
-  line 190  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 236  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 190  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 236  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
 ui/shared/mocks/src/chatStore.ts
-  line 382  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 382  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
 ui/shared/mocks/src/events.ts
-  line 41  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 42  LOW  LC001  "gpt-4.1-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 41  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 42  LOW  LC001  "gpt-4.1-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
 ui/shared/mocks/src/handlers.ts
-  line 627  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 628  LOW  LC001  "gpt-4.1-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 627  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 628  LOW  LC001  "gpt-4.1-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
 ui/shared/mocks/src/overview.ts
-  line 238  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 508  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 238  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 508  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
 ui/shared/mocks/src/router.ts
-  line 106  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 107  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"
-  line 114  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 115  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 116  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 117  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 118  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 124  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 126  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 157  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 180  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 223  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 224  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 225  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 343  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"
-  line 387  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"
+  line 106  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 107  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"  (seed/demo file)
+  line 114  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 115  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 116  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 117  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 118  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 124  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 126  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 157  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 180  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 223  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 224  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 225  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 343  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"  (seed/demo file)
+  line 387  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"  (seed/demo file)
 
 ui/shared/mocks/src/seed.ts
-  line 88  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
-  line 89  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 88  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
+  line 89  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
 ui/shared/mocks/src/tryRun.ts
-  line 49  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 49  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna  (seed/demo file)
 
-LOW = seed, demo, mock or sample file. Sources:
+LOW = seed, demo, mock or sample file, example config, or one entry in a list
+      of many model names. Sources:
   LC001  https://developers.openai.com/api/docs/deprecations
   LC003  https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
-Found 17 high, 36 low in 18 file(s).
+Found 17 high, 37 low in 19 file(s).
 
 Need help migrating? prasadrandika.github.io

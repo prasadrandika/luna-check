@@ -131,7 +131,8 @@ def test_tests_are_skipped_unless_asked(tmp_path):
 
 def test_markdown_and_other_files_are_not_scanned(tmp_path):
     write(tmp_path, "README.md", '`model="gpt-4o"`\n')
-    write(tmp_path, "config.yaml", "model: gpt-4o\n")
+    write(tmp_path, "notes.txt", "model: gpt-4o\n")
+    write(tmp_path, "config.ini", "model = gpt-4o\n")
     assert hits(tmp_path) == []
 
 

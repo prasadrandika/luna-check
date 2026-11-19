@@ -8,6 +8,7 @@ from pathlib import Path
 
 from . import rules
 from .checks import run_all
+from .config import check_config, config_kind, is_data_path, is_example_config
 from .lexer import EXTENSIONS, lex
 
 SKIP_DIRS = {
@@ -47,12 +48,21 @@ def iter_files(root: Path, include_tests: bool):
             continue
         for name in sorted(filenames):
             path = Path(dirpath) / name
-            if path.suffix.lower() not in EXTENSIONS:
-                continue
             rel = rel_dir / name
+            if path.suffix.lower() not in EXTENSIONS:
+                if config_kind(name) is None or is_data_path(rel):
+                    continue
             if not include_tests and is_test_path(rel):
                 continue
             yield path, rel
+
+
+def _lower(found: list, reason: str, note: str) -> None:
+    for f in found:
+        if f.severity == rules.HIGH:
+            f.severity = rules.LOW
+            f.low_reason = reason
+            f.message += note
 
 
 def scan(root, strict: bool = False, include_tests: bool = False):
@@ -67,17 +77,26 @@ def scan(root, strict: bool = False, include_tests: bool = False):
             text = path.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
+        kind = config_kind(path.name)
+        if kind is None and path.suffix.lower() not in EXTENSIONS:
+            continue  # a single file of a type luna-check does not read
         count += 1
-        lx = lex(text, EXTENSIONS[path.suffix.lower()])
-        found = [
-            f for f in run_all(lx, rel.as_posix(), strict)
-            if IGNORE_MARK not in lx.line_text(f.line)
-        ]
-        if found and is_low_path(rel):
-            for f in found:
-                if f.severity == rules.HIGH:
-                    f.severity = rules.LOW
-                    f.message += " (Seed/demo file, so lower priority.)"
+        if kind is not None:
+            lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
+            found = [
+                f for f in check_config(text, rel.as_posix(), kind)
+                if IGNORE_MARK not in lines[f.line - 1]
+            ]
+            if is_example_config(rel):
+                _lower(found, "example config", " (Example config, so lower priority.)")
+        else:
+            lx = lex(text, EXTENSIONS[path.suffix.lower()])
+            found = [
+                f for f in run_all(lx, rel.as_posix(), strict)
+                if IGNORE_MARK not in lx.line_text(f.line)
+            ]
+        if is_low_path(rel):
+            _lower(found, "seed/demo file", " (Seed/demo file, so lower priority.)")
         findings.extend(found)
     findings.sort(key=lambda f: (f.path, f.line, f.rule.id))
     return findings, count

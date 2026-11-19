@@ -19,8 +19,9 @@ def text_report(findings, files_scanned: int, target: str, strict: bool = False)
         out.append(path)
         for f in group:
             if f.severity == rules.LOW:
-                # Seed/demo files: one line each, so they don't bury the real problems.
-                out.append(f"  line {f.line}  LOW  {f.rule.id}  {_short(f)}")
+                # One line each, so they don't bury the real problems.
+                why = f"  ({f.low_reason})" if f.low_reason else ""
+                out.append(f"  line {f.line}  LOW  {f.rule.id}  {_short(f)}{why}")
                 continue
             out.append(f"  line {f.line}  {LABEL[f.severity]}  {f.rule.id}  {f.rule.title}")
             out.append(f"      {f.message}")
@@ -29,7 +30,8 @@ def text_report(findings, files_scanned: int, target: str, strict: bool = False)
         out.append("")
     low_rules = sorted({f.rule.id: f.rule for f in findings if f.severity == rules.LOW}.items())
     if low_rules:
-        out.append("LOW = seed, demo, mock or sample file. Sources:")
+        out.append("LOW = seed, demo, mock or sample file, example config, or one entry in a list")
+        out.append("      of many model names. Sources:")
         for rid, rule in low_rules:
             out.append(f"  {rid}  {rule.source}")
         out.append("")

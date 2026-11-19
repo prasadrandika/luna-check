@@ -8,6 +8,8 @@ These are files from three open-source projects, used to test luna-check against
 | `nasiko/` | [Nasiko-Labs/nasiko](https://github.com/Nasiko-Labs/nasiko) | Apache-2.0, see `nasiko/LICENSE` | `97cd065eebafc748ed78fbef750c7a2b12622b04` | `167ea56e2bf6c1b7ba46f2b63840e0654d84d36a` |
 | `weclaw/` | [fastclaw-ai/weclaw](https://github.com/fastclaw-ai/weclaw) | MIT, see `weclaw/LICENSE` | `f9560754a67a7ed5e83be1eb793d972471b06cf7` | `61f70704aa6945ff9b75a650c1e6ecb45fe54d61` |
 
+`grafana-ai-sdk/` is not a migration. It holds one unmodified file, `providers/openai/models.go`, from [grafana/ai-sdk](https://github.com/grafana/ai-sdk) at commit `9bf9d0b98913942d3438f616be308c77bbe9b016` (Apache-2.0, see `grafana-ai-sdk/LICENSE` and `grafana-ai-sdk/NOTICE`). Its list of known OpenAI model IDs is the test case for reporting catalog entries as LOW.
+
 The files keep their original licenses. luna-check's MIT license does not cover them.
 
 Two more migrations, Basic-Rag and youtube_transcription_api, have no license, so their files are **not** copied here. `tests/test_real_repos.py` downloads them at pinned commits from the public forks at github.com/prasadrandika when the tests run.

@@ -94,3 +94,19 @@ def test_before_finds_everything_the_migration_fixed(repo, repo_dir):
 @pytest.mark.parametrize("repo", sorted(EXPECTED_BEFORE))
 def test_after_is_clean(repo, repo_dir):
     assert found(repo_dir(repo, "after")) == set()
+
+
+# grafana/ai-sdk (Apache-2.0) lists every OpenAI model ID it knows in a catalog,
+# knownResponsesModelIDs. The file is copied unchanged from commit
+# 9bf9d0b98913942d3438f616be308c77bbe9b016. Nothing there is the model the SDK
+# sends, so the nine retiring IDs in it are LOW, not HIGH.
+GRAFANA_CATALOG_LINES = {139, 140, 141, 142, 145, 147, 148, 151, 152}
+
+
+def test_model_catalog_is_low():
+    findings, _ = scan(REAL / "grafana-ai-sdk")
+    assert {(f.path, f.line, f.rule.id) for f in findings} == {
+        ("providers/openai/models.go", line, "LC001") for line in GRAFANA_CATALOG_LINES
+    }
+    assert {f.severity for f in findings} == {"low"}
+    assert {f.low_reason for f in findings} == {"model list"}

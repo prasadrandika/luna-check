@@ -17,6 +17,7 @@ class Finding:
     severity: str
     message: str
     fix: str
+    low_reason: str = ""  # why a finding is LOW, shown in the short report line
 
     def to_dict(self) -> dict:
         return {
@@ -28,6 +29,7 @@ class Finding:
             "message": self.message,
             "fix": self.fix,
             "source": self.rule.source,
+            "low_reason": self.low_reason,
         }
 
 
@@ -67,9 +69,56 @@ def is_relevant(lx: Lexed) -> bool:
 
 # --- LC001 ------------------------------------------------------------------
 
+# Any model name, from any provider. Used only to count how many model names
+# sit together in one list or map, so a catalog is not mistaken for a setting.
+ANY_MODEL_RE = re.compile(
+    r"(?i)^(?:[\w.-]+/)?(?:gpt-|chatgpt-|o[1-9](?:-|$)|claude-|gemini-|text-embedding-|"
+    r"text-davinci|davinci|babbage|dall-e|whisper-|tts-|codex-|llama|mistral|mixtral|"
+    r"command-|deepseek|qwen|grok-|sonar)[\w.:-]*$"
+)
+CATALOG_MIN = 4  # model names in one list/map before it counts as a catalog
+CATALOG_NOTE = "model list"
+
+
+def _innermost_containers(lx: Lexed) -> dict:
+    """Map each string's start offset to the offset of its innermost open bracket."""
+    starts = sorted(lit.start for lit in lx.strings)
+    out = {}
+    stack = []
+    si = 0
+    code = lx.code
+    for i, ch in enumerate(code):
+        while si < len(starts) and starts[si] <= i:
+            out[starts[si]] = stack[-1] if stack else None
+            si += 1
+        if ch in "([{":
+            stack.append(i)
+        elif ch in ")]}" and stack:
+            stack.pop()
+    while si < len(starts):
+        out[starts[si]] = stack[-1] if stack else None
+        si += 1
+    return out
+
+
+def catalog_containers(lx: Lexed) -> tuple:
+    """(catalog bracket offsets, innermost bracket of each string).
+
+    A catalog is a list or map holding CATALOG_MIN or more distinct model names.
+    """
+    where = _innermost_containers(lx)
+    counts = {}
+    for lit in lx.strings:
+        c = where.get(lit.start)
+        if c is not None and not lit.docstring and ANY_MODEL_RE.match(lit.value):
+            counts.setdefault(c, set()).add(lit.value)
+    return {c for c, names in counts.items() if len(names) >= CATALOG_MIN}, where
+
+
 def check_model_ids(lx: Lexed, path: str, skip_lines: set) -> list:
     out = []
     seen = set()  # one finding per model per line
+    catalogs, where = catalog_containers(lx)
     for lit in lx.strings:
         if lit.docstring or not lit.value:
             continue
@@ -77,22 +126,29 @@ def check_model_ids(lx: Lexed, path: str, skip_lines: set) -> list:
             continue  # prose, log text, prompts, SQL: not a model ID setting
         if lx.prev_char(lit.start) in "{," and lx.next_char(lit.end) == ":" and lx.prev_char(lit.start):
             continue  # a mapping key, as in a price or context-size table
+        in_catalog = where.get(lit.start) in catalogs
         base = _value_offset(lx, lit)
         for m, model in retiring_ids(lit.value):
             line = lx.line_of(base + m.start())
             if line in skip_lines or PRICE_RE.search(lx.line_text(line)) or (line, model) in seen:
                 continue
             seen.add((line, model))
-            out.append(
-                Finding(
-                    path,
-                    line,
-                    rules.MODEL_ID,
-                    rules.HIGH,
-                    rules.model_message(model),
-                    f'Use "{rules.REPLACEMENT}" (or read the model name from config).',
-                )
+            f = Finding(
+                path,
+                line,
+                rules.MODEL_ID,
+                rules.HIGH,
+                rules.model_message(model),
+                f'Use "{rules.REPLACEMENT}" (or read the model name from config).',
             )
+            if in_catalog:
+                # A list of many model names (a catalog or allow-list), not the
+                # model this code sends. Worth cleaning up, but not urgent.
+                f.severity = rules.LOW
+                f.low_reason = CATALOG_NOTE
+                f.message += " (One entry in a list of many model names, so lower priority.)"
+                f.fix = f'Remove it from the list, or add "{rules.REPLACEMENT}" if the list is missing it.'
+            out.append(f)
     return out
 
 
