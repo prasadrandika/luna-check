@@ -16,7 +16,7 @@ Each finding in the report includes its source link.
 ## Install
 
 ```bash
-pip install git+https://github.com/prasadrandika/luna-check@v0.2.0
+pip install git+https://github.com/prasadrandika/luna-check@v0.2.1
 ```
 
 It needs Python 3.9 or newer and Git, has no dependencies, and works on Windows, macOS and Linux. It is not on PyPI yet.
@@ -28,7 +28,7 @@ luna-check path/to/project
 ```
 
 ```
-luna-check 0.2.0: scanned 3 file(s) in path/to/project
+luna-check 0.2.1: scanned 3 file(s) in path/to/project
 
 app.py
   line 43  HIGH  LC002  tiktoken.encoding_for_model() raises KeyError for gpt-6-luna
@@ -55,7 +55,7 @@ Found 2 high, 0 low in 1 file(s).
 
 ```yaml
 - uses: actions/checkout@v5
-- uses: prasadrandika/luna-check@v0.2.0
+- uses: prasadrandika/luna-check@v0.2.1
   with:
     path: .          # folder to scan
     fail: true       # false = report only, never fail the job
@@ -74,9 +74,16 @@ Found 2 high, 0 low in 1 file(s).
 
 LC003 reports a sampling setting only when reasoning effort is missing or set to something other than `"none"`. If reasoning effort comes from a variable, luna-check can't tell its value, so it reports nothing.
 
-## Changes in 0.2.0
+## Changes
 
-LC003 now runs by default and is HIGH. OpenAI's "Using GPT-6" guide confirms the rule applies to gpt-6-luna when reasoning effort is not `none`. `--strict` and the Action's `strict` input still work but have no effect.
+**0.2.1**
+- Findings now describe OpenAI's rules in luna-check's own words and link the source. They no longer quote OpenAI's pages.
+- The footer line now reads "Need help migrating? prasadrandika.github.io".
+
+**0.2.0**
+- LC003 runs by default and is HIGH. `--strict` and the Action's `strict` input still work but have no effect.
+
+**About LC003's source.** OpenAI's "Using GPT-6" guide covers gpt-6-luna. It says to drop the sampling parameters only when reasoning effort is not `none`, so LC003 skips requests that set it to `"none"`. The newer "Using GPT-6.2" guide at `/guides/latest-model` says to drop them with no effort condition, but it is written for gpt-6.2 models. LC003 follows the gpt-6-luna guidance.
 
 ## Limits
 

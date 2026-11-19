@@ -181,8 +181,8 @@ def _tools_finding(path: str, line: int) -> Finding:
         rules.CHAT_TOOLS,
         rules.HIGH,
         "Function tools are sent to /chat/completions with no reasoning_effort. "
-        'gpt-6-luna "supports function calling only with `reasoning_effort` set to `none`" '
-        "on Chat Completions.",
+        "The gpt-6-luna model page says that on Chat Completions it accepts function "
+        'calling only when reasoning_effort is "none".',
         'Send reasoning_effort "none" with gpt-6-luna, or move to the Responses API.',
     )
 
@@ -279,9 +279,8 @@ def _sampling_finding(path: str, line: int, param: str) -> Finding:
         rules.SAMPLING,
         rules.HIGH,
         f'"{param}" is sent and reasoning effort is not "none" (gpt-6-luna defaults '
-        'to "medium"). OpenAI: "When reasoning effort is not `none`, remove '
-        '`temperature`, `top_p`, and `top_logprobs`. For Chat Completions, also '
-        'remove `logprobs`."',
+        'to "medium"). OpenAI\'s Using GPT-6 guide says to drop temperature, top_p '
+        "and top_logprobs in that case, and also logprobs on Chat Completions.",
         f'Remove "{param}" from this request when moving to gpt-6-luna.',
     )
 

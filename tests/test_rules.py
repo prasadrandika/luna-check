@@ -386,13 +386,13 @@ def test_text_report(tmp_path, capsys):
     assert main([str(tmp_path)]) == 1
     out = capsys.readouterr().out
     assert "a.py" in out and "line 1" in out and rules.DEPRECATIONS_URL in out
-    assert out.rstrip().splitlines()[-1] == "Need help migrating? github.com/prasadrandika"
+    assert out.rstrip().splitlines()[-1] == "Need help migrating? prasadrandika.github.io"
 
 
 def test_clean_report_and_exit_codes(tmp_path, capsys):
     write(tmp_path, "a.py", 'm = "gpt-6-luna"\n')
     assert main([str(tmp_path)]) == 0
-    assert capsys.readouterr().out.rstrip().endswith("Need help migrating? github.com/prasadrandika")
+    assert capsys.readouterr().out.rstrip().endswith("Need help migrating? prasadrandika.github.io")
     write(tmp_path, "b.py", 'm = "gpt-4o"\n')
     assert main([str(tmp_path), "--exit-zero"]) == 0
     assert main([str(tmp_path / "missing")]) == 2
@@ -409,9 +409,23 @@ def test_json_report(tmp_path, capsys):
     data = json.loads(capsys.readouterr().out)
     assert data["findings"][0]["rule"] == "LC001"
     assert data["findings"][0]["source"] == rules.DEPRECATIONS_URL
-    assert data["footer"] == "Need help migrating? github.com/prasadrandika"
+    assert data["footer"] == "Need help migrating? prasadrandika.github.io"
 
 
 def test_every_rule_cites_an_official_source():
     for rule in rules.ALL_RULES:
         assert rule.source.startswith(("https://developers.openai.com/", "https://github.com/openai/"))
+
+
+def test_messages_paraphrase_instead_of_quoting(tmp_path):
+    # Findings describe OpenAI's rules in our own words, so they can't go stale
+    # when a page is reworded. No quoted page text (backticks) in any message.
+    write(tmp_path, "a.py", '''
+        enc = tiktoken.encoding_for_model("gpt-4o")
+        r = client.chat.completions.create(model="gpt-4o-mini", messages=m, tools=T, temperature=0)
+    ''')
+    findings, _ = scan(tmp_path)
+    assert {f.rule.id for f in findings} == {"LC001", "LC002", "LC003", "LC004"}
+    for f in findings:
+        assert "`" not in f.message and 'OpenAI: "' not in f.message
+        assert f.rule.source.startswith("https://")

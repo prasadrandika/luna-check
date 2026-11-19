@@ -69,8 +69,11 @@ DATED_IDS = {snap: alias for alias, snaps in SNAPSHOTS.items() for snap in snaps
 # tiktoken maps all four retiring models to this encoding (tiktoken/model.py).
 OLD_ENCODING = "o200k_base"
 
-# "When reasoning effort is not `none`, remove `temperature`, `top_p`, and
-# `top_logprobs`. For Chat Completions, also remove `logprobs`." (Using GPT-6 guide)
+# The Using GPT-6 guide (which covers gpt-6-luna) says to drop temperature, top_p
+# and top_logprobs when reasoning effort is not "none", and also logprobs on Chat
+# Completions. Checked 2026-11-19. The newer "Using GPT-6.2" guide at
+# /guides/latest-model drops them with no effort condition, but it is written for
+# gpt-6.2 models, not gpt-6-luna.
 # gpt-6-luna's default reasoning effort is "medium" (gpt-6-luna model page).
 SAMPLING_PARAMS = ("temperature", "top_p", "logprobs", "top_logprobs")
 

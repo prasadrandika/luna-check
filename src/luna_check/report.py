@@ -7,7 +7,7 @@ from itertools import groupby
 
 from . import __version__, rules
 
-FOOTER = "Need help migrating? github.com/prasadrandika"
+FOOTER = "Need help migrating? prasadrandika.github.io"
 LABEL = {rules.HIGH: "HIGH", rules.LOW: "LOW"}
 
 
