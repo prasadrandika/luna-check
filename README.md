@@ -8,15 +8,15 @@ Other tools only search for model names. luna-check also finds the problems that
 |---|---|---|
 | **LC001** | A retiring model ID: `gpt-4o`, `gpt-4o-mini`, `gpt-4.1`, `gpt-4.1-mini` and their dated snapshots. Bare names like `gpt-4o-mini` point to the dated snapshots listed on the deprecations page. | [OpenAI deprecations](https://developers.openai.com/api/docs/deprecations) |
 | **LC002** | A `tiktoken.encoding_for_model()` call. tiktoken has no entry for `gpt-6-luna`, so after the switch the call raises `KeyError`. This was checked with tiktoken 0.7.0 and 0.14.0. | [tiktoken/model.py](https://github.com/openai/tiktoken/blob/main/tiktoken/model.py) |
+| **LC003** | A request that sets `temperature`, `top_p`, `top_logprobs` or `logprobs` without setting reasoning effort to `"none"`. OpenAI's guide says to remove these when reasoning effort is not `none`, and gpt-6-luna defaults to `medium`. | [Using GPT-6: migration quickstart](https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart), [gpt-6-luna model page](https://developers.openai.com/api/docs/models/gpt-6-luna) |
 | **LC004** | Function tools sent to `/chat/completions` without `reasoning_effort`. On Chat Completions, gpt-6-luna supports function calling only with `reasoning_effort` set to `none`. | [gpt-6-luna model page](https://developers.openai.com/api/docs/models/gpt-6-luna) |
-| **LC003** *(only with `--strict`)* | Calls that set `temperature`, `top_p`, `logprobs` or `top_logprobs`. **Not confirmed for gpt-6-luna.** OpenAI's GPT-6.2 guide says to omit these, but the gpt-6-luna page doesn't mention them. | [GPT-6.2 migration guide](https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md) |
 
 Each finding in the report includes its source link.
 
 ## Install
 
 ```bash
-pip install git+https://github.com/prasadrandika/luna-check@v0.1.0
+pip install git+https://github.com/prasadrandika/luna-check@v0.2.0
 ```
 
 It needs Python 3.9 or newer and Git, has no dependencies, and works on Windows, macOS and Linux. It is not on PyPI yet.
@@ -28,7 +28,7 @@ luna-check path/to/project
 ```
 
 ```
-luna-check 0.1.0: scanned 3 file(s) in path/to/project
+luna-check 0.2.0: scanned 3 file(s) in path/to/project
 
 app.py
   line 43  HIGH  LC002  tiktoken.encoding_for_model() raises KeyError for gpt-6-luna
@@ -45,21 +45,19 @@ Found 2 high, 0 low in 1 file(s).
 
 | Option | Meaning |
 |---|---|
-| `--strict` | Also report LC003 (sampling settings; not confirmed for gpt-6-luna). |
 | `--include-tests` | Also scan test files. They are skipped by default. |
 | `--format json` | Machine-readable output. |
 | `--exit-zero` | Always exit 0. |
 
-**Exit codes:** `1` if any HIGH finding was found, `0` if not, and `2` if the path doesn't exist. LOW and UNCONFIRMED findings never fail the run.
+**Exit codes:** `1` if any HIGH finding was found, `0` if not, and `2` if the path doesn't exist. LOW findings never fail the run.
 
 ## GitHub Action
 
 ```yaml
-- uses: actions/checkout@v4
-- uses: prasadrandika/luna-check@v0.1.0
+- uses: actions/checkout@v5
+- uses: prasadrandika/luna-check@v0.2.0
   with:
     path: .          # folder to scan
-    strict: false    # true = also report LC003
     fail: true       # false = report only, never fail the job
 ```
 
@@ -74,6 +72,12 @@ Found 2 high, 0 low in 1 file(s).
 - Folders like `node_modules`, `vendor`, `.venv`, `dist` and `build` are skipped.
 - To silence one line, add a comment containing `luna-check: ignore` on that line.
 
+LC003 reports a sampling setting only when reasoning effort is missing or set to something other than `"none"`. If reasoning effort comes from a variable, luna-check can't tell its value, so it reports nothing.
+
+## Changes in 0.2.0
+
+LC003 now runs by default and is HIGH. OpenAI's "Using GPT-6" guide confirms the rule applies to gpt-6-luna when reasoning effort is not `none`. `--strict` and the Action's `strict` input still work but have no effect.
+
 ## Limits
 
 luna-check reads code. It does not run it. It won't see a model name that comes only from an environment variable or a config file, and it can't follow a request built in a different file from where it is sent. A clean report means none of these known patterns were found. It does not prove the migration will work, so test your app against `gpt-6-luna` too.
@@ -81,6 +85,10 @@ luna-check reads code. It does not run it. It won't see a model name that comes 
 ## Tested on real migrations
 
 Five real projects were migrated off `gpt-4o-mini`: Basic-Rag, youtube_transcription_api, dsl, Nasiko and WeClaw. The tests check two things: luna-check finds every problem each migration fixed in the "before" version, and it reports nothing in the "after" version. Files from the three projects with an open-source license are stored in `tests/fixtures/real/` with their licenses. The other two projects have no license, so their files are downloaded at pinned commits when the tests run.
+
+## Further reading
+
+- [Migrating from GPT-4.x to GPT-6 Luna](https://help.openai.com/en/articles/20001600-migrating-from-gpt-4x-to-gpt-6-luna) (OpenAI Help Center)
 
 ## License
 

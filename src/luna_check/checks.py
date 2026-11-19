@@ -215,13 +215,61 @@ def check_chat_tools(lx: Lexed, path: str) -> list:
     return out
 
 
-# --- LC003 (only with --strict) --------------------------------------------
+# --- LC003 sampling parameters with reasoning on ------------------------------
 
 SAMPLING_ALT = "|".join(rules.SAMPLING_PARAMS)
 PY_KWARG = re.compile(rf"\b({SAMPLING_ALT})\s*=(?!=)")
 JS_KEY = re.compile(rf"\b({SAMPLING_ALT})\s*:")
 GO_FIELD = re.compile(r"\b(Temperature|TopP|Logprobs|LogProbs|TopLogprobs|TopLogProbs)\s*:")
-GO_TAG = re.compile(rf'json:"({SAMPLING_ALT})[,"]')
+GO_ASSIGN = re.compile(r"\.(Temperature|TopP|Logprobs|LogProbs|TopLogprobs|TopLogProbs)\s*=(?!=)")
+NULL_VALUE = re.compile(r"\s*[:=]\s*(None|null|undefined|nil)\b")
+EFFORT_CODE = re.compile(r"\b(?:reasoning_effort|reasoningEffort|ReasoningEffort|effort)\b")
+EFFORT_KEYS = ("reasoning_effort", "reasoningEffort", "effort")
+GO_PARAM = {"Temperature": "temperature", "TopP": "top_p", "Logprobs": "logprobs",
+            "LogProbs": "logprobs", "TopLogprobs": "top_logprobs", "TopLogProbs": "top_logprobs"}
+
+NONE, OTHER, UNKNOWN = "none", "other", "unknown"
+
+
+def _effort_states(lx: Lexed, start: int, end: int) -> set:
+    """How reasoning effort is set between start and end.
+
+    For each mention of reasoning_effort (or an "effort" key), look at the value
+    right after it: the string "none" -> NONE, another string -> OTHER,
+    anything else (a variable, a function call) -> UNKNOWN.
+    """
+    marks = [m.end() for m in EFFORT_CODE.finditer(lx.code, start, end)]
+    marks += [lit.end for lit in lx.strings if start <= lit.start < end and lit.value in EFFORT_KEYS]
+    states = set()
+    for pos in marks:
+        value = None
+        for lit in lx.strings:
+            if lit.start >= pos:
+                if re.fullmatch(r"[\s:=]*", lx.code[pos:lit.start]):
+                    value = lit.value
+                break
+        if value is None:
+            states.add(UNKNOWN)
+        else:
+            states.add(NONE if value == "none" else OTHER)
+    return states
+
+
+def _enclosing_spans(code: str, offset: int, levels: int = 2) -> list:
+    spans = []
+    depth = 0
+    k = offset - 1
+    while k >= 0 and len(spans) < levels:
+        ch = code[k]
+        if ch in ")]}":
+            depth += 1
+        elif ch in "([{":
+            if depth == 0:
+                spans.append((k, _close_paren(code, k) + 1))
+            else:
+                depth -= 1
+        k -= 1
+    return spans
 
 
 def _sampling_finding(path: str, line: int, param: str) -> Finding:
@@ -229,53 +277,66 @@ def _sampling_finding(path: str, line: int, param: str) -> Finding:
         path,
         line,
         rules.SAMPLING,
-        rules.UNCONFIRMED,
-        f'"{param}" is set. OpenAI\'s GPT-6.2 migration guide says to omit '
-        "temperature, top_p, logprobs and top_logprobs on Chat Completions. "
-        "Not confirmed for gpt-6-luna: its model page does not say.",
-        "Test this request against gpt-6-luna before shipping.",
+        rules.HIGH,
+        f'"{param}" is sent and reasoning effort is not "none" (gpt-6-luna defaults '
+        'to "medium"). OpenAI: "When reasoning effort is not `none`, remove '
+        '`temperature`, `top_p`, and `top_logprobs`. For Chat Completions, also '
+        'remove `logprobs`."',
+        f'Remove "{param}" from this request when moving to gpt-6-luna.',
     )
 
 
 def check_sampling(lx: Lexed, path: str) -> list:
+    hits = []  # (offset, param)
+
+    def keep(offset: int, value_at: int) -> bool:
+        return not NULL_VALUE.match(lx.code, value_at) and not NULL_VALUE.match(lx.source, value_at)
+
+    if lx.lang == PY:
+        for m in PY_KWARG.finditer(lx.code):
+            if lx.prev_char(m.start()) in "(," and keep(m.start(), m.end(1)):
+                hits.append((m.start(), m.group(1)))
+    elif lx.lang == JS:
+        for m in JS_KEY.finditer(lx.code):
+            if lx.prev_char(m.start()) in "{," and keep(m.start(), m.end(1)):
+                hits.append((m.start(), m.group(1)))
+    else:
+        for rx in (GO_FIELD, GO_ASSIGN):
+            for m in rx.finditer(lx.code):
+                if (rx is GO_ASSIGN or lx.prev_char(m.start()) in "{,") and keep(m.start(), m.end(1)):
+                    hits.append((m.start(), GO_PARAM[m.group(1)]))
+    for lit in lx.strings:
+        if (lit.value in rules.SAMPLING_PARAMS and lx.next_char(lit.end) == ":"
+                and lx.prev_char(lit.start) in "{," and keep(lit.start, lit.end)):
+            hits.append((lit.start, lit.value))
+
     out = []
     seen = set()
-
-    def add(offset: int, param: str) -> None:
+    file_states = _effort_states(lx, 0, len(lx.code)) if lx.lang == GO else None
+    for offset, param in sorted(hits):
+        if lx.lang == GO:
+            # Go request structs are often built far from where fields are set.
+            states = file_states
+        else:
+            states = set()
+            for a, b in _enclosing_spans(lx.code, offset):
+                states |= _effort_states(lx, a, b)
+        if NONE in states or UNKNOWN in states:
+            continue  # effort is "none", or set from a variable we cannot see
         line = lx.line_of(offset)
         if (line, param) not in seen:
             seen.add((line, param))
             out.append(_sampling_finding(path, line, param))
-
-    if lx.lang == PY:
-        for m in PY_KWARG.finditer(lx.code):
-            if lx.prev_char(m.start()) in "(,":
-                add(m.start(), m.group(1))
-    elif lx.lang == JS:
-        for m in JS_KEY.finditer(lx.code):
-            if lx.prev_char(m.start()) in "{,":
-                add(m.start(), m.group(1))
-    else:
-        for m in GO_FIELD.finditer(lx.code):
-            if lx.prev_char(m.start()) in "{,":
-                add(m.start(), m.group(1))
-    for lit in lx.strings:
-        if lit.value in rules.SAMPLING_PARAMS and lx.next_char(lit.end) == ":" and lx.prev_char(lit.start) in "{,":
-            add(lit.start, lit.value)
-        if lx.lang == GO:
-            t = GO_TAG.search(lit.value)
-            if t:
-                add(lit.start, t.group(1))
     return out
 
 
-def run_all(lx: Lexed, path: str, strict: bool) -> list:
+def run_all(lx: Lexed, path: str, strict: bool = False) -> list:
+    # `strict` is kept for compatibility. Since 0.2.0 every rule runs by default.
     if not is_relevant(lx) and not TIKTOKEN_CALL[lx.lang].search(lx.code):
         return []
     tiktoken = check_tiktoken(lx, path)
     findings = tiktoken + check_model_ids(lx, path, {f.line for f in tiktoken})
     if is_relevant(lx):
         findings += check_chat_tools(lx, path)
-        if strict:
-            findings += check_sampling(lx, path)
+        findings += check_sampling(lx, path)
     return findings

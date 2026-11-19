@@ -9,7 +9,7 @@ inputs:
     description: Folder to scan.
     default: "."
   strict:
-    description: Also report temperature/top_p settings (not confirmed for gpt-6-luna).
+    description: No effect since v0.2.0 (every rule runs by default). Kept so existing workflows keep working.
     default: "false"
   fail:
     description: Fail the job when high-severity problems are found.
@@ -26,10 +26,8 @@ runs:
     - shell: bash
       env:
         LC_PATH: ${{ inputs.path }}
-        LC_STRICT: ${{ inputs.strict }}
         LC_FAIL: ${{ inputs.fail }}
       run: |
         args=("$LC_PATH")
-        [ "$LC_STRICT" = "true" ] && args+=(--strict)
         [ "$LC_FAIL" = "true" ] || args+=(--exit-zero)
         luna-check "${args[@]}"

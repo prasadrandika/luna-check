@@ -283,33 +283,100 @@ def test_go_sdk_call(tmp_path):
     assert [h[1:3] for h in hits(tmp_path)] == [(3, "LC004"), (4, "LC001")]
 
 
-# --- LC003 sampling (strict only) -------------------------------------------
+# --- LC003 sampling parameters with reasoning on ---------------------------
 
-SAMPLING_PY = '''
-    client.chat.completions.create(model="gpt-6-luna", messages=m, temperature=0.2, top_p=1)
-    temperature = 5
-'''
+def lc003(tmp_path, **kw):
+    return [(h[0], h[1]) for h in hits(tmp_path, **kw) if h[2] == "LC003"]
 
 
-def test_sampling_is_off_by_default(tmp_path):
-    write(tmp_path, "a.py", SAMPLING_PY)
-    assert hits(tmp_path) == []
+def test_sampling_is_on_by_default(tmp_path):
+    write(tmp_path, "a.py", """
+        r = client.chat.completions.create(model="gpt-4o", messages=m, temperature=0.2, top_p=1)
+        temperature = 5
+    """)
+    findings, _ = scan(tmp_path)
+    got = [(f.line, f.rule.id, f.severity) for f in findings if f.rule.id == "LC003"]
+    assert got == [(1, "LC003", "high"), (1, "LC003", "high")]
+    assert "reasoning effort is not \"none\"" in findings[0].message or \
+        "reasoning effort is not \"none\"" in findings[1].message
+    assert rules.SAMPLING.source == rules.GPT6_GUIDE_URL
 
 
-def test_sampling_with_strict(tmp_path):
-    write(tmp_path, "a.py", SAMPLING_PY)
-    findings, _ = scan(tmp_path, strict=True)
-    assert [(f.line, f.rule.id, f.severity) for f in findings] == [
-        (1, "LC003", "unconfirmed"), (1, "LC003", "unconfirmed")]
-    assert "Not confirmed for gpt-6-luna" in findings[0].message
-    assert findings[0].rule.source == rules.GPT62_GUIDE_URL
+@pytest.mark.parametrize("param", ["temperature", "top_p", "logprobs", "top_logprobs"])
+def test_each_sampling_param(tmp_path, param):
+    write(tmp_path, "a.py", f'c.chat.completions.create(model="gpt-6-luna", messages=m, {param}=1)\n')
+    assert lc003(tmp_path) == [("a.py", 1)]
 
 
-def test_sampling_js_and_go(tmp_path):
-    write(tmp_path, "a.ts", 'const r = await c.chat.completions.create({ model: "gpt-4o", temperature: 0 });\n')
-    write(tmp_path, "b.go", 'package b\nvar r = Req{Model: "gpt-4o", Temperature: 0.2}\n')
-    got = [(h[0], h[2]) for h in hits(tmp_path, strict=True)]
-    assert ("a.ts", "LC003") in got and ("b.go", "LC003") in got
+@pytest.mark.parametrize("effort, flagged", [
+    ('reasoning_effort="none"', False),
+    ('extra_body={"reasoning_effort": "none"}', False),
+    ('reasoning_effort="low"', True),
+    ('reasoning_effort="medium"', True),
+    ("reasoning_effort=EFFORT", False),  # set from a variable: cannot tell, so no finding
+])
+def test_sampling_and_reasoning_effort(tmp_path, effort, flagged):
+    write(tmp_path, "a.py", f"""
+        r = client.chat.completions.create(
+            model="gpt-6-luna",
+            messages=m,
+            temperature=0.2,
+            {effort},
+        )
+    """)
+    assert lc003(tmp_path) == ([("a.py", 4)] if flagged else [])
+
+
+def test_sampling_responses_api(tmp_path):
+    write(tmp_path, "a.py", """
+        a = client.responses.create(model="gpt-6-luna", input=x, top_p=0.9)
+        b = client.responses.create(model="gpt-6-luna", input=x, top_p=0.9, reasoning={"effort": "none"})
+        c = client.responses.create(model="gpt-6-luna", input=x, top_p=0.9, reasoning={"effort": "high"})
+    """)
+    assert lc003(tmp_path) == [("a.py", 1), ("a.py", 3)]
+
+
+def test_sampling_langchain(tmp_path):
+    write(tmp_path, "a.py", 'llm = ChatOpenAI(model="gpt-4o", temperature=0)\n')
+    assert lc003(tmp_path) == [("a.py", 1)]
+
+
+def test_sampling_in_params_dict(tmp_path):
+    write(tmp_path, "a.py", """
+        params = {"model": "gpt-4.1", "temperature": 0.3}
+        safe = {"model": "gpt-4.1", "temperature": 0.3, "reasoning_effort": "none"}
+    """)
+    assert lc003(tmp_path) == [("a.py", 1)]
+
+
+def test_sampling_null_values_are_ignored(tmp_path):
+    write(tmp_path, "a.ts", 'const cfg = { model: "gpt-4o", temperature: null, top_p: undefined };\n')
+    write(tmp_path, "b.py", 'c.chat.completions.create(model="gpt-4o", messages=m, temperature=None)\n')
+    assert lc003(tmp_path) == []
+
+
+def test_sampling_needs_a_relevant_model(tmp_path):
+    write(tmp_path, "a.py", 'c.chat.completions.create(model="o3", messages=m, temperature=1)\n')
+    assert lc003(tmp_path) == []
+
+
+def test_sampling_js(tmp_path):
+    write(tmp_path, "a.ts", """
+        const a = await c.chat.completions.create({ model: "gpt-4o", messages, temperature: 0 });
+        const b = await c.chat.completions.create({ model: "gpt-6-luna", messages, temperature: 0, reasoning_effort: "none" });
+    """)
+    assert lc003(tmp_path) == [("a.ts", 1)]
+
+
+def test_sampling_go(tmp_path):
+    write(tmp_path, "a.go", 'package a\nvar r = Req{Model: "gpt-4o", Temperature: 0.2}\nfunc f() { r.TopP = 0.9 }\n')
+    write(tmp_path, "b.go", 'package b\nvar r = Req{Model: "gpt-6-luna", Temperature: 0.2, ReasoningEffort: "none"}\n')
+    assert lc003(tmp_path) == [("a.go", 2), ("a.go", 3)]
+
+
+def test_strict_flag_still_accepted(tmp_path, capsys):
+    write(tmp_path, "a.py", 'm = "gpt-6-luna"\n')
+    assert main([str(tmp_path), "--strict"]) == 0
 
 
 # --- report and CLI ----------------------------------------------------------

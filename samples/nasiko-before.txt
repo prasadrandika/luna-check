@@ -1,4 +1,4 @@
-luna-check 0.1.0: scanned 966 file(s) in before
+luna-check 0.2.0: scanned 966 file(s) in before
 
 agents/books/llm.go
   line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
@@ -47,12 +47,20 @@ agents/langchain/src/agent.py
       "gpt-4o" points to the dated snapshot(s) gpt-4o-2024-08-06, gpt-4o-2024-11-20, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
+  line 44  HIGH  LC003  Sampling parameter sent while reasoning effort is not "none"
+      "temperature" is sent and reasoning effort is not "none" (gpt-6-luna defaults to "medium"). OpenAI: "When reasoning effort is not `none`, remove `temperature`, `top_p`, and `top_logprobs`. For Chat Completions, also remove `logprobs`."
+      Fix: Remove "temperature" from this request when moving to gpt-6-luna.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
 agents/summarizer/src/agent_executor.py
   line 30  HIGH  LC001  Model shuts down on Jan 14, 2027
       "gpt-4o-mini" points to the dated snapshot(s) gpt-4o-mini-2024-07-18, which shut down on Jan 14, 2027. Replace it with "gpt-6-luna".
       Fix: Use "gpt-6-luna" (or read the model name from config).
       Source: https://developers.openai.com/api/docs/deprecations
+  line 76  HIGH  LC003  Sampling parameter sent while reasoning effort is not "none"
+      "temperature" is sent and reasoning effort is not "none" (gpt-6-luna defaults to "medium"). OpenAI: "When reasoning effort is not `none`, remove `temperature`, `top_p`, and `top_logprobs`. For Chat Completions, also remove `logprobs`."
+      Fix: Remove "temperature" from this request when moving to gpt-6-luna.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
 agents/translator/src/agent_executor.py
   line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
@@ -63,6 +71,10 @@ agents/translator/src/agent_executor.py
       Function tools are sent to /chat/completions with no reasoning_effort. gpt-6-luna "supports function calling only with `reasoning_effort` set to `none`" on Chat Completions.
       Fix: Send reasoning_effort "none" with gpt-6-luna, or move to the Responses API.
       Source: https://developers.openai.com/api/docs/models/gpt-6-luna
+  line 174  HIGH  LC003  Sampling parameter sent while reasoning effort is not "none"
+      "temperature" is sent and reasoning effort is not "none" (gpt-6-luna defaults to "medium"). OpenAI: "When reasoning effort is not `none`, remove `temperature`, `top_p`, and `top_logprobs`. For Chat Completions, also remove `logprobs`."
+      Fix: Remove "temperature" from this request when moving to gpt-6-luna.
+      Source: https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
 agents/weather/llm.go
   line 96  HIGH  LC001  Model shuts down on Jan 14, 2027
@@ -105,6 +117,7 @@ ui/shared/mocks/src/overview.ts
 
 ui/shared/mocks/src/router.ts
   line 106  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 107  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"
   line 114  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
   line 115  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
   line 116  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
@@ -117,6 +130,8 @@ ui/shared/mocks/src/router.ts
   line 223  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
   line 224  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
   line 225  LOW  LC001  "gpt-4o-mini" shuts down on Jan 14, 2027 -> gpt-6-luna
+  line 343  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"
+  line 387  LOW  LC003  Sampling parameter sent while reasoning effort is not "none"
 
 ui/shared/mocks/src/seed.ts
   line 88  LOW  LC001  "gpt-4o" shuts down on Jan 14, 2027 -> gpt-6-luna
@@ -127,8 +142,8 @@ ui/shared/mocks/src/tryRun.ts
 
 LOW = seed, demo, mock or sample file. Sources:
   LC001  https://developers.openai.com/api/docs/deprecations
+  LC003  https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart
 
-Found 14 high, 33 low in 18 file(s).
-Run with --strict to also list temperature/top_p settings (not confirmed for gpt-6-luna).
+Found 17 high, 36 low in 18 file(s).
 
 Need help migrating? github.com/prasadrandika

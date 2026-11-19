@@ -1,9 +1,9 @@
 """Rule data. Every fact here comes from the source URL stored next to it.
 
-Checked on 2026-11-18 against:
+Checked on 2026-11-19 against:
   - https://developers.openai.com/api/docs/deprecations
   - https://developers.openai.com/api/docs/models/gpt-6-luna
-  - https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md
+  - https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md ("Using GPT-6")
   - https://github.com/openai/tiktoken/blob/main/tiktoken/model.py
 """
 
@@ -13,7 +13,8 @@ from dataclasses import dataclass
 
 DEPRECATIONS_URL = "https://developers.openai.com/api/docs/deprecations"
 LUNA_MODEL_URL = "https://developers.openai.com/api/docs/models/gpt-6-luna"
-GPT62_GUIDE_URL = "https://developers.openai.com/api/docs/guides/latest-model/gpt-6.2-astra.md"
+# "Using GPT-6" guide. Its migration quickstart names gpt-6-luna as a target model.
+GPT6_GUIDE_URL = "https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart"
 TIKTOKEN_MODEL_URL = "https://github.com/openai/tiktoken/blob/main/tiktoken/model.py"
 
 REPLACEMENT = "gpt-6-luna"
@@ -21,9 +22,7 @@ SHUTDOWN_DATE = "Jan 14, 2027"
 
 HIGH = "high"
 LOW = "low"
-UNCONFIRMED = "unconfirmed"
-
-SEVERITY_ORDER = {HIGH: 0, LOW: 1, UNCONFIRMED: 2}
+SEVERITY_ORDER = {HIGH: 0, LOW: 1}
 
 
 @dataclass(frozen=True)
@@ -45,8 +44,8 @@ TIKTOKEN = Rule(
 )
 SAMPLING = Rule(
     "LC003",
-    "Sampling parameter sent (not confirmed for gpt-6-luna)",
-    GPT62_GUIDE_URL,
+    "Sampling parameter sent while reasoning effort is not \"none\"",
+    GPT6_GUIDE_URL,
 )
 CHAT_TOOLS = Rule(
     "LC004",
@@ -70,8 +69,9 @@ DATED_IDS = {snap: alias for alias, snaps in SNAPSHOTS.items() for snap in snaps
 # tiktoken maps all four retiring models to this encoding (tiktoken/model.py).
 OLD_ENCODING = "o200k_base"
 
-# Parameters the GPT-6.2 guide says to omit on Chat Completions. The gpt-6-luna
-# model page does not mention them, so this rule only runs with --strict.
+# "When reasoning effort is not `none`, remove `temperature`, `top_p`, and
+# `top_logprobs`. For Chat Completions, also remove `logprobs`." (Using GPT-6 guide)
+# gpt-6-luna's default reasoning effort is "medium" (gpt-6-luna model page).
 SAMPLING_PARAMS = ("temperature", "top_p", "logprobs", "top_logprobs")
 
 

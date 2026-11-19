@@ -8,10 +8,10 @@ from itertools import groupby
 from . import __version__, rules
 
 FOOTER = "Need help migrating? github.com/prasadrandika"
-LABEL = {rules.HIGH: "HIGH", rules.LOW: "LOW", rules.UNCONFIRMED: "UNCONFIRMED"}
+LABEL = {rules.HIGH: "HIGH", rules.LOW: "LOW"}
 
 
-def text_report(findings, files_scanned: int, target: str, strict: bool) -> str:
+def text_report(findings, files_scanned: int, target: str, strict: bool = False) -> str:
     out = [f"luna-check {__version__}: scanned {files_scanned} file(s) in {target}", ""]
     if not findings:
         out.append("No problems found for the Jan 14, 2027 shutdown of GPT-4o, GPT-4o mini, GPT-4.1 and GPT-4.1 mini.")
@@ -36,12 +36,7 @@ def text_report(findings, files_scanned: int, target: str, strict: bool) -> str:
     if findings:
         counts = {s: sum(1 for f in findings if f.severity == s) for s in LABEL}
         files = len({f.path for f in findings})
-        summary = f"Found {counts[rules.HIGH]} high, {counts[rules.LOW]} low"
-        if strict:
-            summary += f", {counts[rules.UNCONFIRMED]} unconfirmed"
-        out.append(summary + f" in {files} file(s).")
-    if not strict:
-        out.append("Run with --strict to also list temperature/top_p settings (not confirmed for gpt-6-luna).")
+        out.append(f"Found {counts[rules.HIGH]} high, {counts[rules.LOW]} low in {files} file(s).")
     out.append("")
     out.append(FOOTER)
     return "\n".join(out)

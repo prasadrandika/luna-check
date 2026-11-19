@@ -1,4 +1,4 @@
-luna-check 0.1.0: scanned 2 file(s) in before
+luna-check 0.2.0: scanned 2 file(s) in before
 
 app.py
   line 43  HIGH  LC002  tiktoken.encoding_for_model() raises KeyError for gpt-6-luna
@@ -11,6 +11,5 @@ app.py
       Source: https://developers.openai.com/api/docs/deprecations
 
 Found 2 high, 0 low in 1 file(s).
-Run with --strict to also list temperature/top_p settings (not confirmed for gpt-6-luna).
 
 Need help migrating? github.com/prasadrandika

@@ -92,12 +92,5 @@ def test_before_finds_everything_the_migration_fixed(repo, repo_dir):
 
 
 @pytest.mark.parametrize("repo", sorted(EXPECTED_BEFORE))
-@pytest.mark.parametrize("strict", [False, True])
-def test_after_is_clean(repo, strict, repo_dir):
-    assert found(repo_dir(repo, "after"), strict=strict) == set()
-
-
-@pytest.mark.parametrize("repo", sorted(EXPECTED_BEFORE))
-def test_before_strict_adds_nothing(repo, repo_dir):
-    # None of the five migrations sent temperature/top_p, so --strict adds nothing.
-    assert found(repo_dir(repo, "before"), strict=True) == EXPECTED_BEFORE[repo]
+def test_after_is_clean(repo, repo_dir):
+    assert found(repo_dir(repo, "after")) == set()

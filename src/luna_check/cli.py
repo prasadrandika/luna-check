@@ -18,8 +18,8 @@ def main(argv=None) -> int:
         "GPT-4.1 mini shut down in the OpenAI API on Jan 14, 2027.",
     )
     p.add_argument("path", nargs="?", default=".", help="folder or file to scan (default: .)")
-    p.add_argument("--strict", action="store_true",
-                   help="also report temperature/top_p/logprobs settings (not confirmed for gpt-6-luna)")
+    # Kept so existing commands keep working. Since 0.2.0 every rule runs by default.
+    p.add_argument("--strict", action="store_true", help=argparse.SUPPRESS)
     p.add_argument("--include-tests", action="store_true", help="also scan test files")
     p.add_argument("--format", choices=("text", "json"), default="text")
     p.add_argument("--exit-zero", action="store_true", help="always exit 0, even with high findings")
@@ -35,7 +35,7 @@ def main(argv=None) -> int:
     if args.format == "json":
         print(json_report(findings, count, args.path))
     else:
-        print(text_report(findings, count, args.path, args.strict))
+        print(text_report(findings, count, args.path))
 
     if args.exit_zero:
         return 0
