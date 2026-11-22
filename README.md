@@ -130,6 +130,10 @@ luna-check reads code. It does not run it. It won't see a model name that is set
 
 The model data is a copy of the providers' pages from the date in `models.json` (`checked`). New retirements are added in new releases.
 
+### How the model data stays current
+
+Every Monday the `refresh-models` workflow runs `scripts/refresh_models.py`. It rebuilds `models.json` from the official pages and, if anything changed, opens a pull request that lists each added, changed and removed entry with its source link and the test result. If a page can't be read the usual way (a parser error, no rows, or far fewer rows than before), it opens an issue instead and leaves the data alone. A person reviews every change before it is merged and released.
+
 ## Tested on real migrations
 
 Five real projects were migrated off `gpt-4o-mini`: Basic-Rag, youtube_transcription_api, dsl, Nasiko and WeClaw. The tests check two things: luna-check finds every problem each migration fixed in the "before" version, and it reports nothing in the "after" version. Files from the three projects with an open-source license are stored in `tests/fixtures/real/` with their licenses. Small example files for each platform are in `tests/fixtures/providers/`. One unchanged file from [grafana/ai-sdk](https://github.com/grafana/ai-sdk) (Apache-2.0), its list of known OpenAI model IDs, tests that model catalogs are reported as LOW. The other two projects have no license, so their files are downloaded at pinned commits when the tests run.

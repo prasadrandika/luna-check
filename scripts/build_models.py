@@ -464,7 +464,8 @@ def main(argv=None) -> int:
         print(f"error: {e}", file=sys.stderr)
         return 1
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
-    Path(args.out).write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    with open(args.out, "w", encoding="utf-8", newline="\n") as f:
+        f.write(json.dumps(data, indent=1, ensure_ascii=False) + "\n")
     counts = {}
     for e in data["models"]:
         counts[e["platform"]] = counts.get(e["platform"], 0) + 1

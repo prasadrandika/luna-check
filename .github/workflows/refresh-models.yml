@@ -1,0 +1,108 @@
+name: refresh-models
+
+# Rebuilds src/luna_check/data/models.json from the official deprecation pages.
+# A change opens (or updates) a pull request for review. A page that can't be
+# read the usual way (parser error, 0 rows, or far fewer rows) opens an issue
+# instead and leaves models.json alone. See scripts/refresh_models.py.
+
+on:
+  schedule:
+    - cron: "17 6 * * 1" # Mondays, 06:17 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only report in the run summary; don't open a pull request or issue"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: refresh-models
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    env:
+      OUT: ${{ github.workspace }}/../refresh-out
+      LABEL: models-refresh
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Rebuild models.json from the official pages
+        id: refresh
+        run: python scripts/refresh_models.py --out-dir "$OUT"
+
+      - name: Run the tests on the new data
+        id: tests
+        if: steps.refresh.outputs.result == 'changed'
+        continue-on-error: true
+        run: |
+          python -m pip install ".[test]"
+          python -m pytest -q -rs > "$OUT/pytest.txt" 2>&1
+
+      - name: Add the test result to the pull request text
+        if: steps.refresh.outputs.result == 'changed'
+        run: |
+          {
+            echo
+            echo "### Tests on the new data"
+            echo
+            if [ "${{ steps.tests.outcome }}" = "success" ]; then
+              echo "All tests passed: $(tail -n 1 "$OUT/pytest.txt")"
+            else
+              echo "**Some tests failed.** A test that pins a date from models.json fails when that date changes; update it if the page really changed. Last lines of the output:"
+              echo
+              echo '```'
+              tail -n 25 "$OUT/pytest.txt"
+              echo '```'
+            fi
+          } >> "$OUT/pr-body.md"
+
+      - name: Write the run summary
+        if: always()
+        run: |
+          echo "## Result: ${{ steps.refresh.outputs.result }}" >> "$GITHUB_STEP_SUMMARY"
+          for f in pr-body.md issue-body.md; do
+            if [ -f "$OUT/$f" ]; then echo >> "$GITHUB_STEP_SUMMARY"; cat "$OUT/$f" >> "$GITHUB_STEP_SUMMARY"; fi
+          done
+
+      - name: Make sure the label exists
+        if: inputs.dry_run != true && steps.refresh.outputs.result != 'unchanged'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh label create "$LABEL" --color FBCA04 --description "Weekly models.json refresh" 2>/dev/null || true
+
+      - name: Open or update the pull request
+        if: inputs.dry_run != true && steps.refresh.outputs.result == 'changed'
+        uses: peter-evans/create-pull-request@3ffccacd46053766916f087ce41d627c0b8cf2d1 # v8.1.3
+        with:
+          branch: auto/refresh-models
+          delete-branch: true
+          add-paths: src/luna_check/data/models.json
+          commit-message: Refresh models.json from the official deprecation pages
+          title: Refresh models.json from the official deprecation pages
+          body-path: ${{ env.OUT }}/pr-body.md
+          labels: ${{ env.LABEL }}
+
+      - name: Open or update the issue
+        if: inputs.dry_run != true && steps.refresh.outputs.result == 'layout'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="Weekly model refresh could not read a deprecation page"
+          n=$(gh issue list --state open --label "$LABEL" --json number,title \
+                -q ".[] | select(.title == \"$title\") | .number" | head -n 1)
+          if [ -n "$n" ]; then
+            gh issue comment "$n" --body-file "$OUT/issue-body.md"
+          else
+            gh issue create --title "$title" --label "$LABEL" --body-file "$OUT/issue-body.md"
+          fi
