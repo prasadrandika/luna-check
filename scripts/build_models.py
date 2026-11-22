@@ -341,6 +341,8 @@ def parse_vertex(text: str, url: str, ov: dict) -> list:
 
 # --- Azure OpenAI -----------------------------------------------------------------
 
+FOOTNOTE = re.compile(r"\^\d+\^")
+
 def parse_azure(text: str, url: str, ov: dict) -> list:
     m = re.search(r"\n### Azure OpenAI\s*\n(.*?)(?=\n#{2,3} )", text, re.S)
     if not m:
@@ -351,10 +353,12 @@ def parse_azure(text: str, url: str, ov: dict) -> list:
         if names[:4] != ["model", "version", "lifecycle", "retirement date"]:
             continue
         for row in rows:
+            # Footnote markers such as "2027-01-14^2^" or "gpt-5.6-sol^4^" can sit in any cell.
+            row = [FOOTNOTE.sub("", c).strip() for c in row]
             name, version, life, date = row[0], row[1], row[2].lower(), row[3]
             if life not in ("deprecated", "legacy", "retired"):
                 continue
-            date = parse_date(re.sub(r"\^\d+\^", "", date))
+            date = parse_date(date)
             repl = row[4] if len(row) > 4 and row[4] not in ("—", "-", "") else None
             out.append({
                 "platform": "azure",

@@ -29,7 +29,7 @@ Each finding in the report includes its source link.
 ## Install
 
 ```bash
-pip install git+https://github.com/prasadrandika/luna-check@v0.4.1
+pip install git+https://github.com/prasadrandika/luna-check@v0.4.2
 ```
 
 It needs Python 3.9 or newer and Git, has no dependencies, and works on Windows, macOS and Linux. It is not on PyPI yet.
@@ -68,7 +68,7 @@ Found 2 high, 0 low in 1 file(s).
 
 ```yaml
 - uses: actions/checkout@v5
-- uses: prasadrandika/luna-check@v0.4.1
+- uses: prasadrandika/luna-check@v0.4.2
   with:
     path: .          # folder to scan
     fail: true       # false = report only, never fail the job
@@ -101,6 +101,9 @@ A model name used as a prefix or substring test, as in `name.startswith("gpt-4")
 LC003 reports a sampling setting only when reasoning effort is missing or set to something other than `"none"`. If reasoning effort comes from a variable, luna-check can't tell its value, so it reports nothing.
 
 ## Changes
+
+**0.4.2**
+- Fix: Azure OpenAI replacements no longer include the page's footnote markers (`gpt-5.6-sol^4^` is now `gpt-5.6-sol`). This affected 7 o-series entries in 0.4.0 and 0.4.1.
 
 **0.4.1**
 - Model data refreshed from the official pages on Nov 22, 2026 (the first weekly refresh): Vertex AI moved `gemini-3.6-flash` to Jan 28, 2027 and lists `gemini-4-hydrogen` as the replacement for it and `gemini-3.7-flash`; seven Azure OpenAI o-series versions are now retired.

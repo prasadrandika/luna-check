@@ -3184,7 +3184,7 @@
    "version": "2024-12-17",
    "status": "retired",
    "shutdown": "2026-11-19",
-   "replacement": "gpt-5.6-sol^4^",
+   "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
    "checked": "2026-11-22"
@@ -3200,7 +3200,7 @@
    "version": "2025-03-19",
    "status": "retired",
    "shutdown": "2026-11-19",
-   "replacement": "gpt-5.6-sol^4^",
+   "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
    "checked": "2026-11-22"
@@ -3216,7 +3216,7 @@
    "version": "2025-04-16",
    "status": "retired",
    "shutdown": "2026-11-19",
-   "replacement": "gpt-5.6-sol^4^",
+   "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
    "checked": "2026-11-22"
@@ -3232,7 +3232,7 @@
    "version": "2025-06-26",
    "status": "retired",
    "shutdown": "2026-11-19",
-   "replacement": "gpt-5.6-sol^4^",
+   "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
    "checked": "2026-11-22"
@@ -3248,7 +3248,7 @@
    "version": "2025-01-31",
    "status": "retired",
    "shutdown": "2026-11-19",
-   "replacement": "gpt-5.6-terra^4^",
+   "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
    "checked": "2026-11-22"
@@ -3264,7 +3264,7 @@
    "version": "2025-06-10",
    "status": "retired",
    "shutdown": "2026-11-19",
-   "replacement": "gpt-5.6-sol^4^",
+   "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
    "checked": "2026-11-22"
@@ -3280,7 +3280,7 @@
    "version": "2025-04-16",
    "status": "retired",
    "shutdown": "2026-11-19",
-   "replacement": "gpt-5.6-terra^4^",
+   "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
    "checked": "2026-11-22"

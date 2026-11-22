@@ -5,6 +5,7 @@ rows, so a layout change on a page shows up as a parser test to update.
 """
 
 import importlib.util
+import json
 from pathlib import Path
 
 import pytest
@@ -128,6 +129,33 @@ def test_vertex_html_table():
         (["gem-a"], "2026-10-20", "gem-b or gem-c"),
         (["emb@003"], "2027-04-01", None),
     ]
+
+
+def test_azure_footnotes_are_stripped_from_every_cell():
+    # The live page puts footnote markers on replacements too ("gpt-5.6-sol^4^"),
+    # which v0.4.0 and v0.4.1 kept in the data.
+    text = """
+### Azure OpenAI
+
+| Model | Version | Lifecycle | Retirement date | Replacement |
+| --- | --- | --- | --- | --- |
+| o3 | 2025-04-16 | Deprecated | 2026-11-19 | gpt-5.6-sol^4^ |
+| o3-mini^5^ | 2025-01-31^5^ | Deprecated^5^ | 2026-11-19^4^ | gpt-5.6-terra^4^ (2026-07-09) |
+
+### Next section
+"""
+    out = bm.parse_azure(text, "U", OV)
+    assert [(e["ids"], e["aliases"], e["version"], e["shutdown"], e["replacement"]) for e in out] == [
+        (["o3-2025-04-16"], ["o3"], "2025-04-16", "2026-11-19", "gpt-5.6-sol"),
+        (["o3-mini-2025-01-31"], ["o3-mini"], "2025-01-31", "2026-11-19", "gpt-5.6-terra"),
+    ]
+    for e in out:
+        assert "^" not in json.dumps(e)
+
+
+def test_shipped_data_has_no_footnote_markers():
+    data = json.loads(bm.OUT.read_text(encoding="utf-8"))
+    assert "^" not in json.dumps(data["models"])
 
 
 def test_azure_table():
