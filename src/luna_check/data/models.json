@@ -4,27 +4,27 @@
  "sources": {
   "openai": {
    "url": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   "anthropic": {
    "url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   "gemini-api": {
    "url": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   "vertex": {
    "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   "azure": {
    "url": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   "bedrock": {
    "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   }
  },
  "models": [
@@ -38,7 +38,7 @@
    "replacement": "gpt-image-2.6-sunburst or gpt-image-2.6-flare",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -51,7 +51,7 @@
    "replacement": "gpt-image-2.6-sunburst or gpt-image-2.6-flare",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -63,7 +63,7 @@
    "replacement": "gpt-image-2.6-sunburst or gpt-image-2.6-flare",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -76,7 +76,7 @@
    "replacement": "gpt-6.1-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -89,7 +89,7 @@
    "replacement": "gpt-6.1-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -102,7 +102,7 @@
    "replacement": "gpt-6-luna",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -115,7 +115,7 @@
    "replacement": "gpt-6.1-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -128,7 +128,7 @@
    "replacement": "gpt-6.1-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -141,7 +141,7 @@
    "replacement": "gpt-6.1-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -153,7 +153,7 @@
    "replacement": "gpt-realtime-2.1-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -165,7 +165,7 @@
    "replacement": "gpt-realtime-2.1-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -179,7 +179,7 @@
    "replacement": "gpt-realtime-2.1-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -195,7 +195,7 @@
    "replacement": "gpt-6-luna",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -210,7 +210,7 @@
    "replacement": "gpt-6-luna",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -225,7 +225,7 @@
    "replacement": "gpt-6-luna",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -240,7 +240,7 @@
    "replacement": "gpt-6-luna",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -253,7 +253,7 @@
    "replacement": "gpt-realtime-2.1",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -266,7 +266,7 @@
    "replacement": "gpt-audio-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -278,7 +278,7 @@
    "replacement": "gpt-audio-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -290,7 +290,7 @@
    "replacement": "gpt-realtime-2.1",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -303,7 +303,7 @@
    "replacement": "gpt-realtime-2.1-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -316,7 +316,7 @@
    "replacement": "gpt-audio-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -328,7 +328,7 @@
    "replacement": "gpt-realtime-2.1-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -340,7 +340,7 @@
    "replacement": "gpt-audio-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -352,7 +352,7 @@
    "replacement": "gpt-4o-mini-transcribe-2025-12-15",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -364,7 +364,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -377,7 +377,7 @@
    "replacement": "gpt-image-2.6-sunburst or gpt-image-2.6-flare",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -389,7 +389,7 @@
    "replacement": "gpt-live-transcribe or gpt-transcribe",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -401,7 +401,7 @@
    "replacement": "gpt-live-transcribe or gpt-transcribe",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -414,7 +414,7 @@
    "replacement": "gpt-live-transcribe or gpt-transcribe",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -426,7 +426,7 @@
    "replacement": "gpt-live-transcribe or gpt-transcribe",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -438,7 +438,7 @@
    "replacement": "gpt-6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -451,7 +451,7 @@
    "replacement": "gpt-6-luna",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -464,7 +464,7 @@
    "replacement": "gpt-6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -478,7 +478,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -493,7 +493,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -505,7 +505,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -519,7 +519,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -532,7 +532,7 @@
    "replacement": "gpt-5.6-luna",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -544,7 +544,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -556,7 +556,7 @@
    "replacement": "gpt-image-2.5-sunburst or gpt-image-2.5-flare",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -569,7 +569,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -582,7 +582,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -595,7 +595,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -607,7 +607,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -620,7 +620,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -632,7 +632,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -644,7 +644,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -656,7 +656,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -668,7 +668,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -680,7 +680,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -692,7 +692,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -704,7 +704,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -716,7 +716,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -728,7 +728,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -740,7 +740,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -752,7 +752,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -764,7 +764,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -777,7 +777,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -789,7 +789,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -801,7 +801,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -813,7 +813,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -825,7 +825,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -837,7 +837,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -849,7 +849,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -861,7 +861,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -873,7 +873,7 @@
    "replacement": "gpt-5.6-terra",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -885,7 +885,7 @@
    "replacement": "gpt-audio-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -897,7 +897,7 @@
    "replacement": "gpt-realtime-2.1-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -910,7 +910,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -923,7 +923,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -935,7 +935,7 @@
    "replacement": "gpt-5.6-sol",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -947,7 +947,7 @@
    "replacement": "gpt-image-2 or gpt-image-1 or gpt-image-1-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -959,7 +959,7 @@
    "replacement": "gpt-image-2 or gpt-image-1 or gpt-image-1-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -971,7 +971,7 @@
    "replacement": "gpt-realtime-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -983,7 +983,7 @@
    "replacement": "gpt-realtime-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -995,7 +995,7 @@
    "replacement": "gpt-realtime-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1007,7 +1007,7 @@
    "replacement": "gpt-realtime-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1019,7 +1019,7 @@
    "replacement": "gpt-audio-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1031,7 +1031,7 @@
    "replacement": "gpt-audio-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1043,7 +1043,7 @@
    "replacement": "gpt-5 or gpt-4.1",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1057,7 +1057,7 @@
    "replacement": "gpt-5 or gpt-4.1",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1069,7 +1069,7 @@
    "replacement": "gpt-5.1-chat-latest",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1081,7 +1081,7 @@
    "replacement": "gpt-5-codex-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1093,7 +1093,7 @@
    "replacement": "omni-moderation",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1105,7 +1105,7 @@
    "replacement": "omni-moderation",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1117,7 +1117,7 @@
    "replacement": "omni-moderation",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1129,7 +1129,7 @@
    "replacement": "o4-mini",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1141,7 +1141,7 @@
    "replacement": "gpt-realtime-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1153,7 +1153,7 @@
    "replacement": "gpt-audio-1.5",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1165,7 +1165,7 @@
    "replacement": "o3",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1177,7 +1177,7 @@
    "replacement": "gpt-4.1",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1189,7 +1189,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1201,7 +1201,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1213,7 +1213,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1225,7 +1225,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1237,7 +1237,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1249,7 +1249,7 @@
    "replacement": "gpt-3.5-turbo",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1261,7 +1261,7 @@
    "replacement": "gpt-3.5-turbo",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1273,7 +1273,7 @@
    "replacement": "gpt-3.5-turbo",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1285,7 +1285,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1297,7 +1297,7 @@
    "replacement": "gpt-3.5-turbo-instruct",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1309,7 +1309,7 @@
    "replacement": "gpt-3.5-turbo-instruct",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1321,7 +1321,7 @@
    "replacement": "gpt-3.5-turbo-instruct",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1333,7 +1333,7 @@
    "replacement": "gpt-3.5-turbo-instruct",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1345,7 +1345,7 @@
    "replacement": "gpt-3.5-turbo-instruct",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1357,7 +1357,7 @@
    "replacement": "gpt-3.5-turbo-instruct",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1369,7 +1369,7 @@
    "replacement": "gpt-3.5-turbo-instruct",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1381,7 +1381,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1393,7 +1393,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1405,7 +1405,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1417,7 +1417,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1429,7 +1429,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1441,7 +1441,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1453,7 +1453,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1465,7 +1465,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1477,7 +1477,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1489,7 +1489,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1501,7 +1501,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1513,7 +1513,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1525,7 +1525,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1537,7 +1537,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1549,7 +1549,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1561,7 +1561,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1573,7 +1573,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1585,7 +1585,7 @@
    "replacement": "text-embedding-3-small",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1597,7 +1597,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1609,7 +1609,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1621,7 +1621,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "openai",
@@ -1633,7 +1633,7 @@
    "replacement": "gpt-4o",
    "after_shutdown": "error",
    "source": "https://developers.openai.com/api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1648,7 +1648,7 @@
    "replacement": "claude-sonnet-5-5",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1660,7 +1660,7 @@
    "replacement": "claude-opus-4-8",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1672,7 +1672,7 @@
    "replacement": "claude-sonnet-5-5",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1684,7 +1684,7 @@
    "replacement": "claude-opus-4-8",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1696,7 +1696,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1708,7 +1708,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1720,7 +1720,7 @@
    "replacement": "claude-sonnet-5-5",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1732,7 +1732,7 @@
    "replacement": "claude-sonnet-5-5",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1744,7 +1744,7 @@
    "replacement": "claude-sonnet-5-5",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1756,7 +1756,7 @@
    "replacement": "claude-opus-4-8",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1768,7 +1768,7 @@
    "replacement": "claude-opus-4-8",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1780,7 +1780,7 @@
    "replacement": "claude-opus-4-8",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1792,7 +1792,7 @@
    "replacement": "claude-sonnet-5-5",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1804,7 +1804,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1816,7 +1816,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1828,7 +1828,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1840,7 +1840,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1852,7 +1852,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1864,7 +1864,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1876,7 +1876,7 @@
    "replacement": "claude-haiku-4-5-20251001",
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "anthropic",
@@ -1888,7 +1888,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1900,7 +1900,7 @@
    "replacement": "gemini-3.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1912,7 +1912,7 @@
    "replacement": "gemini-3.8-flash-tts",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1924,7 +1924,7 @@
    "replacement": "gemini-3.1-pro-preview",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1936,7 +1936,7 @@
    "replacement": "gemini-3.1-flash-lite",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1949,7 +1949,7 @@
    "after_shutdown": "routes",
    "routes_to": "gemini-3.8-flash",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1961,7 +1961,7 @@
    "replacement": "gemini-3.8-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1973,7 +1973,7 @@
    "replacement": "gemini-3.8-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1985,7 +1985,7 @@
    "replacement": "gemini-3.8-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -1997,7 +1997,7 @@
    "replacement": "gemini-3.8-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2010,7 +2010,7 @@
    "after_shutdown": "routes",
    "routes_to": "gemini-3.5-flash-lite",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2022,7 +2022,7 @@
    "replacement": "gemini-3.1-flash-lite",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2034,7 +2034,7 @@
    "replacement": "gemini-3.6-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2046,7 +2046,7 @@
    "replacement": "gemini-3.6-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2058,7 +2058,7 @@
    "replacement": "gemini-3.6-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2070,7 +2070,7 @@
    "replacement": "gemini-3.6-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2082,7 +2082,7 @@
    "replacement": "gemini-3.1-flash-lite",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2094,7 +2094,7 @@
    "replacement": "gemini-3.1-flash-lite",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2106,7 +2106,7 @@
    "replacement": "gemini-3.1-flash-lite",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2118,7 +2118,7 @@
    "replacement": "gemini-3.1-flash-lite",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2130,7 +2130,7 @@
    "replacement": "gemini-3.8-live",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2142,7 +2142,7 @@
    "replacement": "gemini-3.8-live",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2154,7 +2154,7 @@
    "replacement": "gemini-3.8-live",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2166,7 +2166,7 @@
    "replacement": "gemini-3.8-flash-tts",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2178,7 +2178,7 @@
    "replacement": "gemini-3.8-flash-tts",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2190,7 +2190,7 @@
    "replacement": "gemini-embedding-2",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2203,7 +2203,7 @@
    "after_shutdown": "routes",
    "routes_to": "gemini-embedding-2",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2215,7 +2215,7 @@
    "replacement": "gemini-embedding-2",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2227,7 +2227,7 @@
    "replacement": "gemini-embedding-2",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2239,7 +2239,7 @@
    "replacement": "gemini-embedding-2",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2251,7 +2251,7 @@
    "replacement": "gemini-embedding-2",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2263,7 +2263,7 @@
    "replacement": "gemini-embedding-2",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2275,7 +2275,7 @@
    "replacement": "gemini-3.1-flash-lite-image",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2287,7 +2287,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2299,7 +2299,7 @@
    "replacement": "gemini-3-pro-image",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2311,7 +2311,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2323,7 +2323,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2335,7 +2335,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2347,7 +2347,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2359,7 +2359,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2371,7 +2371,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2383,7 +2383,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2395,7 +2395,7 @@
    "replacement": "gemini-nano-banana-2.1",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2407,7 +2407,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2419,7 +2419,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2431,7 +2431,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2443,7 +2443,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2455,7 +2455,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2467,7 +2467,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2479,7 +2479,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2491,7 +2491,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2503,7 +2503,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2515,7 +2515,7 @@
    "replacement": "gemini-omni-1.2-flash",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2527,7 +2527,7 @@
    "replacement": "gemini-robotics-er-2-preview",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2539,7 +2539,7 @@
    "replacement": "gemini-robotics-er-2-preview",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2551,7 +2551,7 @@
    "replacement": "deep-research-preview-04-2026",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "gemini-api",
@@ -2563,7 +2563,7 @@
    "replacement": "antigravity-preview-09-2026",
    "after_shutdown": "error",
    "source": "https://ai.google.dev/gemini-api/docs/deprecations",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2575,7 +2575,7 @@
    "replacement": "gemini-3.8-flash or gemini-3.5-flash",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2587,7 +2587,7 @@
    "replacement": "gemini-3.8-flash or gemini-3.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2599,7 +2599,7 @@
    "replacement": "gemini-3.8-flash or gemini-3.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2611,7 +2611,7 @@
    "replacement": "gemini-3.8-live",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2623,7 +2623,7 @@
    "replacement": "gemini-3.1-flash-lite-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2635,7 +2635,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2647,7 +2647,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2659,7 +2659,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2671,7 +2671,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2680,10 +2680,10 @@
    ],
    "status": "deprecated",
    "shutdown": "2027-01-28",
-   "replacement": "gemini-3.8-flash",
+   "replacement": "gemini-4-hydrogen",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2691,11 +2691,11 @@
     "gemini-3.6-flash"
    ],
    "status": "deprecated",
-   "shutdown": "2026-11-19",
-   "replacement": "gemini-3.8-flash",
+   "shutdown": "2027-01-28",
+   "replacement": "gemini-4-hydrogen",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2707,7 +2707,7 @@
    "replacement": "veo-3.1-generate-001",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2719,7 +2719,7 @@
    "replacement": "veo-3.1-fast-generate-001",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2731,7 +2731,7 @@
    "replacement": "veo-3.1-generate-001",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2743,7 +2743,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2755,7 +2755,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2767,7 +2767,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2779,7 +2779,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2791,7 +2791,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2803,7 +2803,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2815,7 +2815,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2827,7 +2827,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2839,7 +2839,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2851,7 +2851,7 @@
    "replacement": "gemini-3.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2863,7 +2863,7 @@
    "replacement": "gemini-3.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2875,7 +2875,7 @@
    "replacement": "gemini-2.5-flash",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2887,7 +2887,7 @@
    "replacement": "gemini-2.5-flash",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2899,7 +2899,7 @@
    "replacement": "gemini-2.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2911,7 +2911,7 @@
    "replacement": "gemini-2.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2923,7 +2923,7 @@
    "replacement": "gemini-embedding-001",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2935,7 +2935,7 @@
    "replacement": "gemini-embedding-001",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2947,7 +2947,7 @@
    "replacement": "gemini-2.5-flash",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2959,7 +2959,7 @@
    "replacement": "gemini-2.5-flash",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2971,7 +2971,7 @@
    "replacement": "gemini-2.5-flash",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2983,7 +2983,7 @@
    "replacement": "gemini-2.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -2995,7 +2995,7 @@
    "replacement": "gemini-2.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -3007,7 +3007,7 @@
    "replacement": "gemini-2.5-flash-lite",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -3019,7 +3019,7 @@
    "replacement": "gemini-embedding-001",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -3031,7 +3031,7 @@
    "replacement": "gemini-embedding-001",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "vertex",
@@ -3043,7 +3043,7 @@
    "replacement": "gemini-2.5-flash-image",
    "after_shutdown": "error",
    "source": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3059,7 +3059,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3075,7 +3075,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3091,7 +3091,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3107,7 +3107,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3123,7 +3123,7 @@
    "replacement": "gpt-5.1",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3139,7 +3139,7 @@
    "replacement": "gpt-5.1",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3155,7 +3155,7 @@
    "replacement": "gpt-5.1",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3171,7 +3171,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3182,12 +3182,12 @@
     "o1"
    ],
    "version": "2024-12-17",
-   "status": "deprecated",
+   "status": "retired",
    "shutdown": "2026-11-19",
    "replacement": "gpt-5.6-sol^4^",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3198,12 +3198,12 @@
     "o1-pro"
    ],
    "version": "2025-03-19",
-   "status": "deprecated",
+   "status": "retired",
    "shutdown": "2026-11-19",
    "replacement": "gpt-5.6-sol^4^",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3214,12 +3214,12 @@
     "o3"
    ],
    "version": "2025-04-16",
-   "status": "deprecated",
+   "status": "retired",
    "shutdown": "2026-11-19",
    "replacement": "gpt-5.6-sol^4^",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3230,12 +3230,12 @@
     "o3-deep-research"
    ],
    "version": "2025-06-26",
-   "status": "deprecated",
+   "status": "retired",
    "shutdown": "2026-11-19",
    "replacement": "gpt-5.6-sol^4^",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3246,12 +3246,12 @@
     "o3-mini"
    ],
    "version": "2025-01-31",
-   "status": "deprecated",
+   "status": "retired",
    "shutdown": "2026-11-19",
    "replacement": "gpt-5.6-terra^4^",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3262,12 +3262,12 @@
     "o3-pro"
    ],
    "version": "2025-06-10",
-   "status": "deprecated",
+   "status": "retired",
    "shutdown": "2026-11-19",
    "replacement": "gpt-5.6-sol^4^",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "azure",
@@ -3278,12 +3278,12 @@
     "o4-mini"
    ],
    "version": "2025-04-16",
-   "status": "deprecated",
+   "status": "retired",
    "shutdown": "2026-11-19",
    "replacement": "gpt-5.6-terra^4^",
    "after_shutdown": "error",
    "source": "https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3303,7 +3303,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3323,7 +3323,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3379,7 +3379,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3413,7 +3413,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3435,7 +3435,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3457,7 +3457,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3478,7 +3478,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3535,7 +3535,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3557,7 +3557,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3579,7 +3579,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3607,7 +3607,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3636,7 +3636,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3665,7 +3665,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3694,7 +3694,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3724,7 +3724,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3754,7 +3754,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3776,7 +3776,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3798,7 +3798,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3820,7 +3820,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3843,7 +3843,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3866,7 +3866,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3895,7 +3895,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3927,7 +3927,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3959,7 +3959,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -3987,7 +3987,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4015,7 +4015,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4044,7 +4044,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4073,7 +4073,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4100,7 +4100,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4129,7 +4129,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4158,7 +4158,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4191,7 +4191,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4219,7 +4219,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4241,7 +4241,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4261,7 +4261,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4310,7 +4310,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4333,7 +4333,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4356,7 +4356,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4385,7 +4385,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4417,7 +4417,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4439,7 +4439,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4461,7 +4461,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4481,7 +4481,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4503,7 +4503,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4545,7 +4545,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4566,7 +4566,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4587,7 +4587,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4608,7 +4608,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4630,7 +4630,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4655,7 +4655,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4680,7 +4680,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   },
   {
    "platform": "bedrock",
@@ -4702,7 +4702,7 @@
    "replacement": null,
    "after_shutdown": "error",
    "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
-   "checked": "2026-11-19"
+   "checked": "2026-11-22"
   }
  ]
 }
