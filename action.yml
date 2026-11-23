@@ -1,5 +1,5 @@
 name: luna-check
-description: Find code that uses retired or retiring AI models and API features (OpenAI, Anthropic, Gemini, Vertex AI, Azure OpenAI, Bedrock).
+description: Find code that uses retired or retiring AI models and API features (OpenAI, Anthropic, Google, Azure, Bedrock, Mistral, DeepSeek, xAI, Cohere, Groq).
 branding:
   icon: moon
   color: blue

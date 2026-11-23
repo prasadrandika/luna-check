@@ -114,8 +114,8 @@ Effective December 1, 2026, all API requests to `gem-old` will automatically rou
 {% /table %}
 """
     (e,) = bm.parse_gemini(text, "U", OV)
-    assert (e["ids"], e["shutdown"], e["after_shutdown"], e["routes_to"]) == (
-        ["gem-old"], "2026-12-01", "routes", "gem-new")
+    assert (e["ids"], e["shutdown"], e["behavior"], e["routes_to"]) == (
+        ["gem-old"], "2026-12-01", "redirect", "gem-new")
 
 
 def test_vertex_html_table():

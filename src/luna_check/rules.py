@@ -28,8 +28,9 @@ REPLACEMENT = "gpt-6-luna"
 SHUTDOWN_DATE = "Jan 14, 2027"
 
 HIGH = "high"
+MEDIUM = "medium"  # the request still works but is served by a different model
 LOW = "low"
-SEVERITY_ORDER = {HIGH: 0, LOW: 1}
+SEVERITY_ORDER = {HIGH: 0, MEDIUM: 1, LOW: 2}
 
 
 @dataclass(frozen=True)

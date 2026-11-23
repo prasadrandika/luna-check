@@ -59,7 +59,7 @@ def iter_files(root: Path, include_tests: bool):
 
 def _lower(found: list, reason: str, note: str) -> None:
     for f in found:
-        if f.severity == rules.HIGH:
+        if f.severity in (rules.HIGH, rules.MEDIUM):
             f.severity = rules.LOW
             f.low_reason = reason
             f.message += note

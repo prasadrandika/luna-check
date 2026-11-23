@@ -29,6 +29,11 @@ LABEL = {
     "vertex": "Vertex AI",
     "azure": "Azure OpenAI",
     "bedrock": "Amazon Bedrock",
+    "mistral": "Mistral AI API",
+    "deepseek": "DeepSeek API",
+    "xai": "xAI API",
+    "cohere": "Cohere API",
+    "groq": "GroqCloud",
 }
 # When a file shows no platform, an ID shared by two platforms uses the first.
 DEFAULT_OF = {"azure": "openai", "vertex": "gemini-api"}
@@ -71,6 +76,7 @@ def fmt(iso: str) -> str:
 class Catalog:
     def __init__(self, data: dict):
         self.data = data
+        self.word_ids = set(data.get("word_ids", []))
         self.index = {}  # id -> [(entry, is_alias)]
         for e in data["models"]:
             for i in e["ids"]:
@@ -151,6 +157,34 @@ def _latest(entries: list):
     return max(entries, key=lambda ea: ea[0]["shutdown"] or "")
 
 
+def _entry_on(platform: str, model_id: str):
+    """The entry for model_id on platform, or None."""
+    found = [e for e, _ in catalog().index.get(model_id or "", []) if e["platform"] == platform]
+    return max(found, key=lambda e: e["shutdown"] or "") if found else None
+
+
+def _gone(platform: str, model_id: str, now: str):
+    """The entry for model_id if, on its page, it is retired and no longer served."""
+    t = _entry_on(platform, model_id)
+    if t and t.get("shutdown") and t["shutdown"] < now and t.get("behavior") == "error":
+        return t
+    return None
+
+
+def _retired_replacements(platform: str, repl: str, now: str) -> str:
+    """A note for each listed replacement that has itself been retired since."""
+    notes = []
+    for r in repl.split(" or "):
+        t = _entry_on(platform, r)
+        if not t or not t.get("shutdown") or t["shutdown"] >= now:
+            continue
+        note = f'"{r}" was itself retired on {fmt(t["shutdown"])}'
+        if t.get("behavior") == "redirect" and t.get("routes_to"):
+            note += f' and now redirects to "{t["routes_to"]}"'
+        notes.append(note)
+    return f" (Note: {'; '.join(notes)}.)" if notes else ""
+
+
 def _regions(groups: list, now: str) -> str:
     parts = []
     for g in groups:
@@ -180,7 +214,7 @@ def describe(model_id: str, context: set):
     e, alias = _latest(chosen)
     repl = e.get("replacement")
     quoted = " or ".join(f'"{r}"' for r in repl.split(" or ")) if repl else ""
-    use = f" Replace it with {quoted}." if repl else ""
+    use = f" Replace it with {quoted}.{_retired_replacements(platform, repl, now)}" if repl else ""
     fix = f"Use {quoted} (or read the model name from config)." if repl else \
         "Move to a model the provider still supports."
     src = e["source"]
@@ -201,18 +235,36 @@ def describe(model_id: str, context: set):
     elif date is None:
         msg = f'"{model_id}" is deprecated{tag}, and no shutdown date has been announced yet.{use}'
         rep = Report("low", msg, fix, f'"{model_id}" deprecated, no date yet', src, "no date yet")
-    elif e.get("after_shutdown") == "routes":
+    elif e.get("behavior") == "redirect":
+        # The request still gets an answer, from a different model: MEDIUM.
         target = e.get("routes_to")
-        if date >= now:
+        how = f' with "{e["routes_effort"]}" reasoning effort' if e.get("routes_effort") else ""
+        dead = _gone(platform, target, now)
+        if date >= now and platform == "gemini-api":
+            # The Gemini API page asks for a review of breaking API changes first.
             msg = (f'From {fmt(date)}, requests to "{model_id}" on the {label} are routed to '
                    f'"{target}" and billed at its rates. The {label} page says to review the '
                    "breaking API changes before then.")
             short = f'"{model_id}" routed to {target} from {fmt(date)}'
             rep = Report("high", msg, f"Move to {quoted or repr(target)} and test it before {fmt(date)}.", short, src)
+        elif date >= now:
+            msg = (f'"{model_id}" retires on {fmt(date)}{tag}. After that, requests to it are silently '
+                   f'redirected to "{target}"{how}: a different model, so output and pricing can change.{use}')
+            short = f'"{model_id}" redirects to {target} from {fmt(date)}'
+            rep = Report("medium", msg, f'Choose the model yourself before {fmt(date)}: {quoted or repr(target)}.',
+                         short, src)
+        elif dead is not None:
+            msg = (f'"{model_id}" was retired on {fmt(date)}{tag} and redirected to "{target}", which itself '
+                   f'reached end of life on {fmt(dead["shutdown"])}. The {label} pages do not say where these '
+                   "requests go now, so they may fail.")
+            short = f'"{model_id}" redirected to {target}, which is gone'
+            rep = Report("high", msg, "Move to a model the provider still supports.", short, src)
         else:
-            msg = f'Since {fmt(date)}, requests to "{model_id}" on the {label} are served by "{target}".'
-            short = f'"{model_id}" served by {target} since {fmt(date)}'
-            rep = Report("low", msg, f'Use "{repl or target}" directly.', short, src, "routed to a newer model")
+            msg = (f'"{model_id}" was retired on {fmt(date)}{tag} and now silently redirects to "{target}"{how}: '
+                   "a different model, so output and pricing can change.")
+            short = f'"{model_id}" redirects to {target} since {fmt(date)}'
+            rep = Report("medium", msg, f'Set the model to "{target}" (or another current model) yourself, '
+                         "so you choose the model and its price.", short, src)
     elif date >= now:
         verb = "shut down" if alias else "shuts down"
         msg = f"{subject} {verb} on {fmt(date)}{tag}.{use}"

@@ -17,7 +17,7 @@ SPEC.loader.exec_module(rm)
 
 def entry(platform, ids, shutdown="2027-01-14", **kw):
     e = {"platform": platform, "ids": ids, "status": "deprecated", "shutdown": shutdown,
-         "replacement": "new-model", "after_shutdown": "error",
+         "replacement": "new-model", "behavior": "error",
          "source": f"https://example.test/{platform}", "checked": "2026-11-19"}
     e.update(kw)
     return e
@@ -59,7 +59,7 @@ def test_changes_write_data_and_pr_body(tmp_path, committed, monkeypatch):
     new["models"][0]["shutdown"] = "2027-02-01"            # changed
     new["models"] = [e for e in new["models"] if e["ids"] != ["gpt-old-9"]]  # removed
     new["models"].append(entry("gemini-api", ["gemini-x"], "2026-12-01",
-                               after_shutdown="routes", routes_to="gemini-y"))  # added
+                               behavior="redirect", routes_to="gemini-y"))  # added
     fake_build(monkeypatch, new)
     assert rm.run(today="2026-11-23", out_dir=tmp_path, data_path=committed) == "changed"
     assert json.loads(committed.read_text(encoding="utf-8")) == new

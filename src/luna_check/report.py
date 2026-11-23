@@ -8,7 +8,7 @@ from itertools import groupby
 from . import __version__, rules
 
 FOOTER = "Need help migrating? prasadrandika.github.io"
-LABEL = {rules.HIGH: "HIGH", rules.LOW: "LOW"}
+LABEL = {rules.HIGH: "HIGH", rules.MEDIUM: "MEDIUM", rules.LOW: "LOW"}
 
 
 def text_report(findings, files_scanned: int, target: str, strict: bool = False) -> str:
@@ -38,7 +38,10 @@ def text_report(findings, files_scanned: int, target: str, strict: bool = False)
     if findings:
         counts = {s: sum(1 for f in findings if f.severity == s) for s in LABEL}
         files = len({f.path for f in findings})
-        out.append(f"Found {counts[rules.HIGH]} high, {counts[rules.LOW]} low in {files} file(s).")
+        medium = f"{counts[rules.MEDIUM]} medium, " if counts[rules.MEDIUM] else ""
+        out.append(f"Found {counts[rules.HIGH]} high, {medium}{counts[rules.LOW]} low in {files} file(s).")
+        if counts[rules.MEDIUM]:
+            out.append("MEDIUM = the request still works, but a different model answers it (a redirect).")
     out.append("")
     out.append(FOOTER)
     return "\n".join(out)

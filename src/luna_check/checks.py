@@ -76,7 +76,9 @@ def is_relevant(lx: Lexed) -> bool:
 ANY_MODEL_RE = re.compile(
     r"(?i)^(?:[\w.-]+/)?(?:[a-z0-9-]+\.){0,2}(?:gpt-|chatgpt-|o[1-9](?:-|$)|claude-|gemini-|"
     r"text-embedding-|text-davinci|davinci|babbage|dall-e|whisper-|tts-|codex-|llama|mistral|"
-    r"mixtral|command-|deepseek|qwen|grok-|sonar|imagen-|veo-|gemma|nova-|jamba|titan-)[\w.:@-]*$"
+    r"mixtral|command-|deepseek|qwen|grok-|sonar|imagen-|veo-|gemma|nova-|jamba|titan-|"
+    r"open-mi[sx]tral|open-codestral|codestral|magistral|devstral|pixtral|ministral|voxtral|labs-|"
+    r"embed-|rerank-|c4ai-|playai-|kimi-|distil-whisper)[\w.:@-]*$"
 )
 CATALOG_MIN = 4  # model names in one list/map before it counts as a catalog
 CATALOG_NOTE = "model list"
@@ -150,6 +152,8 @@ def check_model_ids(lx: Lexed, path: str, skip_lines: set) -> list:
         in_catalog = where.get(lit.start) in catalogs
         base = _value_offset(lx, lit)
         for start, model in models.catalog().find(lit.value):
+            if model in models.catalog().word_ids and not _is_model_setting(lx, lit, model):
+                continue  # "command", "summarize": everyday words unless set as the model
             line = lx.line_of(base + start)
             if line in skip_lines or PRICE_RE.search(lx.line_text(line)) or (line, model) in seen:
                 continue
@@ -178,10 +182,23 @@ def _is_name_test(lx: Lexed, lit) -> bool:
         lx.prev_char(lit.start) not in "([{,"
 
 
+# What comes right before a string that is a model setting's value:
+# model="x", "model": "x", Model: "x", default_model = "x", modelName: 'x', model := "x".
+MODEL_SETTING = re.compile(r"(?i)\b\w*model(?:_?name|_?id)?[\"'`]?\s*(?::=|=|:)\s*$")
+
+
+def _is_model_setting(lx: Lexed, lit, model: str) -> bool:
+    """The string is the whole value of a model setting (an optional provider/ prefix is fine)."""
+    if not re.fullmatch(r"(?:[\w.-]+/)?" + re.escape(model), lit.value):
+        return False
+    line_start = lx.source.rfind("\n", 0, lit.start) + 1
+    return MODEL_SETTING.search(lx.source[line_start:lit.start]) is not None
+
+
 def model_finding(path: str, line: int, rep, in_catalog: bool) -> Finding:
     f = Finding(path, line, rules.MODEL_ID, rep.severity, rep.message, rep.fix,
                 rep.low_reason, rep.source, rep.short)
-    if in_catalog and f.severity == rules.HIGH:
+    if in_catalog and f.severity in (rules.HIGH, rules.MEDIUM):
         # A list of many model names (a catalog or allow-list), not the model
         # this code sends. Worth cleaning up, but not urgent.
         f.severity = rules.LOW

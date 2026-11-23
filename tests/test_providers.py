@@ -18,6 +18,11 @@ OFFICIAL = (
     "https://docs.cloud.google.com/",
     "https://learn.microsoft.com/",
     "https://docs.aws.amazon.com/",
+    "https://docs.mistral.ai/",
+    "https://api-docs.deepseek.com/",
+    "https://docs.x.ai/",
+    "https://docs.cohere.com/",
+    "https://console.groq.com/",
 )
 
 
@@ -41,7 +46,8 @@ def hits(path):
 
 def test_every_entry_cites_an_official_page():
     data = json.loads(models.DATA.read_text(encoding="utf-8"))
-    assert set(data["sources"]) == {"openai", "anthropic", "gemini-api", "vertex", "azure", "bedrock"}
+    assert set(data["sources"]) == {"openai", "anthropic", "gemini-api", "vertex", "azure", "bedrock",
+                                   "mistral", "deepseek", "xai", "cohere", "groq"}
     for e in data["models"]:
         assert e["source"].startswith(OFFICIAL), e
         assert e["ids"] and e["checked"]
@@ -154,11 +160,13 @@ def test_message_follows_the_date(tmp_path, monkeypatch):
     assert "was shut down on Nov 30, 2026" in found(tmp_path)[0].message
 
 
-def test_routed_model_is_low_after_the_date(tmp_path, monkeypatch):
+def test_routed_model_is_medium_after_the_date(tmp_path, monkeypatch):
     monkeypatch.setenv("LUNA_CHECK_TODAY", "2026-12-02")
     write(tmp_path, "a.py", 'from google import genai\nc = genai.Client(api_key=k)\nm = "gemini-2.5-flash"\n')
     (f,) = found(tmp_path)
-    assert (f.severity, f.low_reason) == ("low", "routed to a newer model")
+    # Requests still work, served by another model: MEDIUM since 0.5.0 (LOW before).
+    assert f.severity == "medium"
+    assert "now silently redirects to" in f.message
 
 
 def test_deprecated_without_date_is_low(tmp_path):

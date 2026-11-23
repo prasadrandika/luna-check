@@ -1,7 +1,8 @@
 {
   "_notes": [
     "aliases.openai: OpenAI's deprecations page lists the four Jan 14, 2027 shutdowns by dated snapshot only. The bare names point to those snapshots, which is how luna-check has reported them since 0.1.0. Other OpenAI rows list their bare names themselves.",
-    "exclude_ids: one-word legacy IDs (retired Jan 4, 2024) that are also common English words or names; matching them in any string would cause false positives."
+    "exclude_ids: one-word legacy IDs (retired Jan 4, 2024) that are also common English words or names; matching them in any string would cause false positives.",
+    "word_ids: model IDs that are also everyday words in code (a CLI \"command\", a \"summarize\" action). LC001 reports them only as the value of a model setting (model=, \"model\":, Model:, default_model = ...), never in other strings."
   ],
   "aliases": {
     "openai": {
@@ -12,5 +13,6 @@
       "gpt-4.1-mini-2025-04-14": ["gpt-4.1-mini"]
     }
   },
-  "exclude_ids": ["ada", "babbage", "curie", "davinci"]
+  "exclude_ids": ["ada", "babbage", "curie", "davinci"],
+  "word_ids": ["command", "command-light", "command-r", "command-r-plus", "summarize"]
 }

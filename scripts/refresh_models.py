@@ -164,7 +164,8 @@ def issue_body(problems: list, today: str) -> str:
         "Pages:",
         "",
     ]
-    lines += [f"- {platform}: {cite}" for platform, (_, cite, _) in build_models.PAGES.items()]
+    lines += [f"- {platform}: {cite}" for platform in build_models.PAGES
+              for _, cite, _ in build_models.pages_of(platform)]
     lines += ["", "_Opened by the `refresh-models` workflow (scripts/refresh_models.py)._"]
     return "\n".join(lines) + "\n"
 
