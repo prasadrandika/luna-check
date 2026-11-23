@@ -60,10 +60,52 @@ PAGES = {
         "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html",
         "bedrock.md",
     ),
+    "mistral": (
+        "https://docs.mistral.ai/models.md",
+        "https://docs.mistral.ai/models",
+        "mistral.md",
+    ),
+    "deepseek": (
+        "https://api-docs.deepseek.com/updates.md",
+        "https://api-docs.deepseek.com/updates",
+        "deepseek-updates.md",
+    ),
+    # xAI: the retirement guide holds the May 15, 2026 table, and the release
+    # notes hold the later end-of-life and redirect notices.
+    "xai": [
+        (
+            "https://docs.x.ai/developers/migration/may-15-retirement.md",
+            "https://docs.x.ai/developers/migration/may-15-retirement",
+            "xai-migration.md",
+        ),
+        (
+            "https://docs.x.ai/developers/release-notes.md",
+            "https://docs.x.ai/developers/release-notes",
+            "xai-release.md",
+        ),
+    ],
+    "cohere": (
+        "https://docs.cohere.com/docs/deprecations.md",
+        "https://docs.cohere.com/docs/deprecations",
+        "cohere.md",
+    ),
+    "groq": (
+        "https://console.groq.com/docs/deprecations.md",
+        "https://console.groq.com/docs/deprecations",
+        "groq.md",
+    ),
 }
 
+
+def pages_of(platform: str) -> list:
+    """[(fetch URL, cite URL, file name)] for a platform (most have one page)."""
+    p = PAGES[platform]
+    return p if isinstance(p, list) else [p]
+
+
 # A parser that finds fewer rows than this has met a new page layout.
-MIN_ENTRIES = {"openai": 60, "anthropic": 15, "gemini-api": 30, "vertex": 15, "azure": 5, "bedrock": 30}
+MIN_ENTRIES = {"openai": 60, "anthropic": 15, "gemini-api": 30, "vertex": 15, "azure": 5, "bedrock": 30,
+               "mistral": 30, "deepseek": 4, "xai": 8, "cohere": 10, "groq": 25}
 
 BACKTICK = re.compile(r"`([^`]+)`")
 MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
@@ -76,9 +118,13 @@ class LayoutError(Exception):
     pass
 
 
+ORDINAL = re.compile(r"\b(\d{1,2})(?:st|nd|rd|th)\b")
+US_DATE = re.compile(r"^\s*(\d{1,2})/(\d{1,2})/(\d{2})\s*$")
+
+
 def parse_date(text: str):
     """The first date in text as YYYY-MM-DD, or None."""
-    m = DATE_RE.search(text or "")
+    m = DATE_RE.search(ORDINAL.sub(r"\1", text or ""))
     if not m:
         return None
     s = m.group(1).replace("Sept ", "Sep ").replace(".", "")
@@ -131,7 +177,7 @@ def replacement_of(text: str):
 def keep_id(model_id: str, overrides: dict) -> bool:
     if model_id in overrides.get("exclude_ids", []):
         return False
-    return bool(re.fullmatch(r"[A-Za-z0-9][\w.:@-]*", model_id))
+    return bool(re.fullmatch(r"[A-Za-z0-9][\w.:@/-]*", model_id))
 
 
 # --- OpenAI -------------------------------------------------------------------
@@ -162,7 +208,7 @@ def parse_openai(text: str, url: str, ov: dict) -> list:
                 "ids": ids,
                 "shutdown": date,
                 "replacement": replacement_of(row[col_repl]) if col_repl is not None else None,
-                "after_shutdown": "error",
+                "behavior": "error",
                 "source": url,
             }
             aliases = sorted({a for i in ids for a in ov.get("aliases", {}).get("openai", {}).get(i, [])})
@@ -214,7 +260,7 @@ def parse_anthropic(text: str, url: str, ov: dict) -> list:
     out = []
     for e in entries.values():
         e.setdefault("shutdown", None)
-        e.update({"after_shutdown": "error", "source": url})
+        e.update({"behavior": "error", "source": url})
         out.append(e)
     return out
 
@@ -253,7 +299,7 @@ def parse_gemini(text: str, url: str, ov: dict) -> list:
             "ids": [model],
             "shutdown": parse_date(cells[2]),
             "replacement": BACKTICK.findall(repl_cell)[0] if BACKTICK.findall(repl_cell) else None,
-            "after_shutdown": "routes" if target else "error",
+            "behavior": "redirect" if target else "error",
             "source": url,
         }
         if target:
@@ -333,7 +379,7 @@ def parse_vertex(text: str, url: str, ov: dict) -> list:
                 "ids": [model],
                 "shutdown": parse_date(date_text),
                 "replacement": " or ".join(repl) or None,
-                "after_shutdown": "error",
+                "behavior": "error",
                 "source": url,
             })
     return out
@@ -367,7 +413,7 @@ def parse_azure(text: str, url: str, ov: dict) -> list:
                 "version": version,
                 "shutdown": date,
                 "replacement": re.sub(r"\s*\(.*?\)", "", repl) if repl else None,
-                "after_shutdown": "error",
+                "behavior": "error",
                 "source": url,
             })
     return out
@@ -406,11 +452,222 @@ def parse_bedrock(text: str, url: str, ov: dict) -> list:
         e.update({
             "shutdown": e["regions"][0]["date"],
             "replacement": None,  # the Bedrock page names none
-            "after_shutdown": "error",
+            "behavior": "error",
             "source": url,
         })
         out.append(e)
     return out
+
+
+def _ids_in_list(text: str) -> list:
+    """`a`, `b` and `c` -> [a, b, c]."""
+    return BACKTICK.findall(text or "")
+
+
+# --- Mistral AI -------------------------------------------------------------------
+
+MD_LINK = re.compile(r"\[([^\]]+)\]\(([^)]+)\)")
+
+
+def parse_mistral(text: str, url: str, ov: dict) -> list:
+    """The "Deprecated and retired models" table. Its Replacement cell links to a
+    model page; the API name is the one the page's tables give for that link."""
+    api_of = {}  # model page link -> API name
+    rows_out = []
+    for header, rows in md_tables(text):
+        names = [h.lower() for h in header]
+        if names[:3] != ["model", "api name", "status"]:
+            continue
+        col_ret = names.index("retirement") if "retirement" in names else None
+        col_repl = names.index("replacement") if "replacement" in names else None
+        for row in rows:
+            link, api = MD_LINK.search(row[0]), BACKTICK.findall(row[1]) if len(row) > 1 else []
+            if link and api:
+                api_of.setdefault(link.group(2), api[0])
+            if col_ret is not None:
+                rows_out.append((row, col_ret, col_repl))
+    entries = {}
+    for row, col_ret, col_repl in rows_out:
+        api = BACKTICK.findall(row[1])
+        if not api or row[2].lower() not in ("deprecated", "retired") or len(row) <= col_ret:
+            continue  # rows without an API name cannot be matched in code
+        model, date = api[0], parse_date(row[col_ret])
+        if not date or not keep_id(model, ov):
+            continue
+        repl = None
+        if col_repl is not None and len(row) > col_repl:
+            link = MD_LINK.search(row[col_repl])
+            if link:
+                repl = api_of.get(link.group(2))
+                if repl is None:
+                    raise LayoutError(f"mistral: no API name for the replacement {link.group(1)}")
+        e = entries.get(model)
+        if e:  # listed twice (Voxtral Mini, Mistral 7B)
+            if e["shutdown"] != date:
+                raise LayoutError(f"mistral: {model} has two dates, {e['shutdown']} and {date}")
+            if repl and repl not in (e["replacement"] or "").split(" or "):
+                e["replacement"] = " or ".join(x for x in (e["replacement"], repl) if x)
+            continue
+        entries[model] = {"platform": "mistral", "ids": [model], "shutdown": date, "replacement": repl,
+                          # "A retired model no longer does [answer requests]."
+                          "behavior": "error", "source": url}
+    return list(entries.values())
+
+
+# --- DeepSeek ---------------------------------------------------------------------
+
+def parse_deepseek(text: str, url: str, ov: dict) -> list:
+    """The change log: one "## Date: YYYY-MM-DD" section per update."""
+    out = {}
+    for sec in re.split(r"\n## Date: ", text)[1:]:
+        day = sec[:10]
+        # "The two legacy API model names, `a` and `b`, will be discontinued in three months (2026-07-24)."
+        m = re.search(r"model names,?\s+((?:`[^`]+`(?:,\s*|\s+and\s+)?)+),?\s+will be discontinued[^(\n]*"
+                      r"\((\d{4}-\d{2}-\d{2})\)", sec)
+        if m:
+            repl = re.search(r"should be set to ((?:`[^`]+`(?:\s+or\s+)?)+)", sec)
+            for i in _ids_in_list(m.group(1)):
+                out[i] = {"platform": "deepseek", "ids": [i], "shutdown": m.group(2),
+                          "replacement": " or ".join(_ids_in_list(repl.group(1))) if repl else None,
+                          "behavior": "error", "source": url}
+        # "... have been retired; for compatibility, the model names `a` and `b` are temporarily routed to ..."
+        m = re.search(r"model names?\s+((?:`[^`]+`(?:,\s*|\s+and\s+)?)+)\s+(?:is|are)\s+(?:temporarily\s+)?"
+                      r"routed to", sec)
+        target = re.search(r"[Cc]hange the model name to `([^`]+)`", sec)
+        if m and target and "retired" in sec:
+            for i in _ids_in_list(m.group(1)):
+                out[i] = {"platform": "deepseek", "ids": [i], "shutdown": day,
+                          "replacement": target.group(1), "behavior": "redirect",
+                          "routes_to": target.group(1), "source": url}
+    return list(out.values())
+
+
+# --- xAI --------------------------------------------------------------------------
+
+LONG_DATE = rf"(?:{MONTHS}) \d{{1,2}}, \d{{4}}"
+
+
+def parse_xai(pages: list, ov: dict) -> list:
+    """pages: [(retirement guide text, url), (release notes text, url)]."""
+    (guide, guide_url), (notes, notes_url) = pages
+    out = {}
+    m = re.search(r"Effective (?:\*\*)?(" + LONG_DATE + ")", guide)
+    if not m:
+        raise LayoutError("xai: no 'Effective <date>' in the retirement guide")
+    date = parse_date(m.group(1))
+    for header, rows in md_tables(guide):
+        if [h.lower() for h in header][:1] != ["model being retired"]:
+            continue
+        for row in rows:
+            ids, target = BACKTICK.findall(row[0]), BACKTICK.findall(row[1]) if len(row) > 1 else []
+            if not ids or not target:
+                continue
+            e = {"platform": "xai", "ids": [ids[0]], "shutdown": date, "replacement": target[0],
+                 # "requests to the retired model slugs above will automatically redirect"
+                 "behavior": "redirect", "routes_to": target[0], "source": guide_url}
+            effort = re.search(r"with `(\w+)` reasoning effort", row[1])
+            if effort:
+                e["routes_effort"] = effort.group(1)
+            out[ids[0]] = e
+
+    def add(i, **kw):
+        out[i] = dict({"platform": "xai", "ids": [i], "replacement": None, "source": notes_url}, **kw)
+
+    for m in re.finditer(r"`([^`]+)` reached end of life on (" + LONG_DATE + r") and is no longer served", notes):
+        add(m.group(1), shutdown=parse_date(m.group(2)), behavior="error")
+    for m in re.finditer(r"On (" + LONG_DATE + r"), `([^`]+)` is retired\. Requests to the slug will be served "
+                         r"by `([^`]+)`", notes):
+        add(m.group(2), shutdown=parse_date(m.group(1)), replacement=m.group(3), behavior="redirect",
+            routes_to=m.group(3))
+    for m in re.finditer(r"`([^`]+)` is deprecated and reaches end of life on (" + LONG_DATE + r")\. All requests "
+                         r"to that slug are routed to `([^`]+)`", notes):
+        add(m.group(1), shutdown=parse_date(m.group(2)), replacement=m.group(3), behavior="redirect",
+            routes_to=m.group(3))
+    for m in re.finditer(r"`([^`]+)` is deprecated\. To upgrade, set `model` to ((?:`[^`]+`(?:\s+or\s+)?)+)", notes):
+        add(m.group(1), shutdown=None, replacement=" or ".join(_ids_in_list(m.group(2))), behavior="error")
+    # A later notice can change where a retired slug's requests go.
+    for m in re.finditer(r"Requests to ((?:`[^`]+`(?:,\s*|\s+and\s+)?)+)\s+are now served by `([^`]+)`", notes):
+        for i in _ids_in_list(m.group(1)):
+            if i in out:
+                out[i]["routes_to"] = m.group(2)
+                out[i]["behavior"] = "redirect"
+    return list(out.values())
+
+
+# --- Cohere -------------------------------------------------------------------------
+
+# A run of "* `model-id` ..." bullets; it ends at the first bullet without an ID.
+BULLETS = r"((?:\n[ \t]*\*[ \t]+`[^\n]+)+)"
+
+
+def parse_cohere(text: str, url: str, ov: dict) -> list:
+    """The "Deprecation History" sections. "Requests to shutdown models and
+    endpoints will fail." Deprecated models get a shutdown date later."""
+    out = {}
+    for sec in re.split(r"\n### ", text)[1:]:
+        m = re.search(r"Effective ([^,\n]+, \d{4}), the following models will be retired:\s*?" + BULLETS, sec)
+        if m:
+            embed = re.search(r"Embedding tasks alternatives:\s*?" + BULLETS, sec)
+            chat = re.search(r"Chat tasks alternatives:\s*?" + BULLETS, sec)
+            for i in _ids_in_list(m.group(2)):
+                alt = embed if i.startswith("embed-") else chat
+                out[i] = {"platform": "cohere", "ids": [i], "shutdown": parse_date(m.group(1)),
+                          "replacement": " or ".join(_ids_in_list(alt.group(1))) if alt else None,
+                          "behavior": "error", "source": url}
+        m = re.search(r"Deprecated Models:\s*?" + BULLETS, sec)
+        if m:
+            rec = re.search(r"we recommend you use ((?:`[^`]+`(?:,\s*or\s+|,\s*|\s+or\s+)?)+)", sec)
+            for line in m.group(1).strip().split("\n"):
+                ids = BACKTICK.findall(line)
+                if not ids:
+                    continue
+                e = {"platform": "cohere", "ids": [ids[0]], "shutdown": None,
+                     "replacement": " or ".join(_ids_in_list(rec.group(1)))
+                     if rec and ids[0].startswith("command") else None,
+                     "behavior": "error", "source": url}
+                aliases = re.findall(r"alias `([^`]+)`", line)
+                if aliases:
+                    e["aliases"] = aliases
+                out[ids[0]] = e
+        for header, rows in md_tables(sec):
+            names = [h.lower() for h in header]
+            if names[:2] != ["shutdown date", "deprecated model"]:
+                continue
+            col_repl = next((k for k, h in enumerate(names) if "replacement" in h), None)
+            for row in rows:
+                ids, date = BACKTICK.findall(row[1]), parse_date(row[0])
+                if ids and date:
+                    out[ids[0]] = {"platform": "cohere", "ids": [ids[0]], "shutdown": date,
+                                   "replacement": replacement_of(row[col_repl]) if col_repl is not None else None,
+                                   "behavior": "error", "source": url}
+    return list(out.values())
+
+
+# --- Groq ---------------------------------------------------------------------------
+
+def parse_groq(text: str, url: str, ov: dict) -> list:
+    """One table per notice. "Requests to deprecated model IDs will return errors"."""
+    out = {}
+    for header, rows in md_tables(text):
+        names = [h.lower() for h in header]
+        if len(names) < 3 or names[1] != "shutdown date":
+            continue
+        for row in rows:
+            if len(row) < 3:
+                continue
+            model = row[0].strip("` ")
+            d = US_DATE.match(row[1])
+            if not d or not keep_id(model, ov):
+                continue
+            date = f"20{d.group(3)}-{int(d.group(1)):02d}-{int(d.group(2)):02d}"
+            # "a b (text-only workloads)" lists two models: "a or b".
+            cell = re.sub(r"\s*\(.*?\)", "", row[2]).strip()
+            repl = [x for x in re.split(r"\s+or\s+|\s+", cell) if x and x not in ("—", "-")]
+            if model in out and out[model]["shutdown"] > date:
+                continue  # listed twice: keep the later notice
+            out[model] = {"platform": "groq", "ids": [model], "shutdown": date,
+                          "replacement": " or ".join(repl) or None, "behavior": "error", "source": url}
+    return list(out.values())
 
 
 PARSERS = {
@@ -420,6 +677,11 @@ PARSERS = {
     "vertex": parse_vertex,
     "azure": parse_azure,
     "bedrock": parse_bedrock,
+    "mistral": parse_mistral,
+    "deepseek": parse_deepseek,
+    "xai": parse_xai,  # two pages
+    "cohere": parse_cohere,
+    "groq": parse_groq,
 }
 
 
@@ -433,9 +695,14 @@ def build(pages_dir=None, today=None) -> dict:
     today = today or dt.date.today().isoformat()
     ov = json.loads(OVERRIDES.read_text(encoding="utf-8"))
     models, sources = [], {}
-    for platform, (fetch_url, cite_url, fname) in PAGES.items():
-        text = (Path(pages_dir) / fname).read_text(encoding="utf-8") if pages_dir else fetch(fetch_url)
-        found = PARSERS[platform](text, cite_url, ov)
+    for platform in PAGES:
+        pages = [((Path(pages_dir) / fname).read_text(encoding="utf-8") if pages_dir else fetch(fetch_url), cite)
+                 for fetch_url, cite, fname in pages_of(platform)]
+        cite_url = pages[0][1]
+        if len(pages) == 1:
+            found = PARSERS[platform](pages[0][0], cite_url, ov)
+        else:
+            found = PARSERS[platform](pages, ov)
         if len(found) < MIN_ENTRIES[platform]:
             raise LayoutError(f"{platform}: only {len(found)} entries (expected {MIN_ENTRIES[platform]}+); page layout changed?")
         for e in found:
@@ -445,13 +712,19 @@ def build(pages_dir=None, today=None) -> dict:
             e["status"] = "retired" if last and last < today else "deprecated"
         models.extend(found)
         sources[platform] = {"url": cite_url, "checked": today}
+        if len(pages) > 1:
+            sources[platform]["also"] = [cite for _, cite in pages[1:]]
+    # behavior: what a request gets after the shutdown date, as the page says:
+    # "error" (the request fails) or "redirect" (served by routes_to instead).
     order = ["platform", "ids", "aliases", "version", "status", "shutdown", "regions",
-             "replacement", "after_shutdown", "routes_to", "source", "checked"]
+             "replacement", "behavior", "routes_to", "routes_effort", "source", "checked"]
     models = [{k: e[k] for k in order if k in e} for e in models]
     return {
         "schema": 1,
         "note": "Generated by scripts/build_models.py from the official pages in 'sources'. Do not edit by hand.",
         "sources": sources,
+        # Also everyday words in code: LC001 reports these only as a model setting's value.
+        "word_ids": ov.get("word_ids", []),
         "models": models,
     }
 

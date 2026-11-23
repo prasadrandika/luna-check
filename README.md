@@ -2,7 +2,7 @@
 
 Find the code that uses AI models and API features that are retired or about to shut down, before your users find it for you.
 
-luna-check started with OpenAI's **Jan 14, 2027** shutdown of GPT-4o, GPT-4o mini, GPT-4.1 and GPT-4.1 mini (hence the name: `gpt-6-luna` is the replacement). Since 0.4.0 it also covers these platforms, using each one's official deprecation page:
+luna-check started with OpenAI's **Jan 14, 2027** shutdown of GPT-4o, GPT-4o mini, GPT-4.1 and GPT-4.1 mini (hence the name: `gpt-6-luna` is the replacement). It now covers these platforms (the last five since 0.5.0), using each one's official deprecation page:
 
 | Platform | Official page | Upcoming examples |
 |---|---|---|
@@ -12,10 +12,15 @@ luna-check started with OpenAI's **Jan 14, 2027** shutdown of GPT-4o, GPT-4o min
 | Vertex AI | [Model versions and lifecycle](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/model-versions) | `gemini-2.5-pro`, `gemini-2.5-flash` retired Oct 20, 2026 |
 | Azure OpenAI | [Model retirement schedule](https://learn.microsoft.com/en-us/azure/foundry/openai/concepts/model-retirement-schedule) | `gpt-4o` 2024-05-13 (Jan 14, 2027); other `gpt-4o`, `gpt-4o-mini`, `gpt-4.1` versions (Apr 14, 2027) |
 | Amazon Bedrock | [Model lifecycle](https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle-legacy.html) | `anthropic.claude-sonnet-4-5-20250929-v1:0` (Apr 8, 2027) |
+| Mistral AI | [Models overview: deprecated and retired models](https://docs.mistral.ai/models) | `mistral-large-2512`, `mistral-medium-3-5` (Apr 30, 2027); `mistral-large-2411` retired May 31, 2026 |
+| DeepSeek | [Change log](https://api-docs.deepseek.com/updates) | `deepseek-chat`, `deepseek-reasoner` retired Jul 24, 2026; `deepseek-v4-flash` redirects to `deepseek-flash` since Sep 10, 2026 |
+| xAI | [May 15, 2026 retirement guide](https://docs.x.ai/developers/migration/may-15-retirement), [release notes](https://docs.x.ai/developers/release-notes) | `grok-3`, `grok-4-0709`, `grok-4-fast-*` redirect to `grok-4.3` since May 15, 2026 |
+| Cohere | [Deprecations](https://docs.cohere.com/docs/deprecations) | `embed-english-v2.0` retired Apr 4, 2026; `command`, `command-r` deprecated (no shutdown date yet) |
+| Groq | [Model deprecation](https://console.groq.com/docs/deprecations) | `llama-3.3-70b-versatile`, `llama-3.1-8b-instant` retired Aug 16, 2026 |
 
 | Rule | What it finds | Source |
 |---|---|---|
-| **LC001** | A model ID that is retired or has a shutdown date, in code or as the value of a model setting in a config file. The dates, replacements and source links come from [`models.json`](src/luna_check/data/models.json), built from the pages above. | The page that lists the model |
+| **LC001** | A model ID that is retired or has a shutdown date, in code or as the value of a model setting in a config file. HIGH when requests fail after the date; MEDIUM when the page says they are silently redirected to another model (xAI, DeepSeek's V4 Flash names, Gemini API models after their date). The dates, replacements and source links come from [`models.json`](src/luna_check/data/models.json), built from the pages above. | The page that lists the model |
 | **LC002** | A `tiktoken.encoding_for_model()` call. tiktoken has no entry for `gpt-6-luna`, so after the switch the call raises `KeyError`. This was checked with tiktoken 0.7.0 and 0.14.0. | [tiktoken/model.py](https://github.com/openai/tiktoken/blob/main/tiktoken/model.py) |
 | **LC003** | A request that sets `temperature`, `top_p`, `top_logprobs` or `logprobs` without setting reasoning effort to `"none"`. OpenAI's guide says to remove these when reasoning effort is not `none`, and gpt-6-luna defaults to `medium`. | [Using GPT-6: migration quickstart](https://developers.openai.com/api/docs/guides/latest-model/gpt-6-astra.md#migration-quickstart), [gpt-6-luna model page](https://developers.openai.com/api/docs/models/gpt-6-luna) |
 | **LC004** | Function tools sent to `/chat/completions` without `reasoning_effort`. On Chat Completions, gpt-6-luna supports function calling only with `reasoning_effort` set to `none`. | [gpt-6-luna model page](https://developers.openai.com/api/docs/models/gpt-6-luna) |
@@ -29,7 +34,7 @@ Each finding in the report includes its source link.
 ## Install
 
 ```bash
-pip install git+https://github.com/prasadrandika/luna-check@v0.4.2
+pip install git+https://github.com/prasadrandika/luna-check@v0.5.0
 ```
 
 It needs Python 3.9 or newer and Git, has no dependencies, and works on Windows, macOS and Linux. It is not on PyPI yet.
@@ -62,13 +67,13 @@ Found 2 high, 0 low in 1 file(s).
 | `--format json` | Machine-readable output. |
 | `--exit-zero` | Always exit 0. |
 
-**Exit codes:** `1` if any HIGH finding was found, `0` if not, and `2` if the path doesn't exist. LOW findings never fail the run.
+**Exit codes:** `1` if any HIGH finding was found, `0` if not, and `2` if the path doesn't exist. MEDIUM and LOW findings never fail the run.
 
 ## GitHub Action
 
 ```yaml
 - uses: actions/checkout@v5
-- uses: prasadrandika/luna-check@v0.4.2
+- uses: prasadrandika/luna-check@v0.5.0
   with:
     path: .          # folder to scan
     fail: true       # false = report only, never fail the job
@@ -82,6 +87,7 @@ Found 2 high, 0 low in 1 file(s).
 - **Tests are skipped:** `tests/`, `test/`, `__tests__/`, `testdata/`, `test_*.py`, `*_test.py`, `*_test.go`, `*.test.ts`, `*.spec.js` and similar.
 - **Price and lookup tables are skipped.** That covers a model name used as a mapping key (`{"gpt-4o": 2.5}`) and any line that mentions price, cost or per-1M.
 - **Prose is skipped.** A string that contains spaces, such as a log message or a prompt, is not treated as a model setting.
+- **Model IDs that are everyday words** (Cohere's `command`, `command-light`, `command-r`, `command-r-plus` and `summarize`) count only as the whole value of a model setting: `model="command"`, `"model": "command-r"`, `Model: "command"`, `DEFAULT_MODEL = "command-light"` or `model: command` in a config file. `add_argument("command")` or `{"type": "command"}` is not reported. The list is `word_ids` in `scripts/models_overrides.json`.
 - **Seed, demo, mock, fixture and sample files** are reported as LOW.
 - **Model catalogs are LOW.** A retiring ID inside a list or map that holds 4 or more different model names, such as a list of known or allowed models, is reported as LOW. A model ID used on its own, as a default or in a request, stays HIGH, and so does a short fallback list.
 - Folders like `node_modules`, `vendor`, `.venv`, `dist` and `build` are skipped.
@@ -94,13 +100,21 @@ Some model IDs are on two platforms with different dates. luna-check looks at th
 - **Azure OpenAI** (`AzureOpenAI`, `azure_endpoint`, `.openai.azure.com`, `AZURE_OPENAI_*`): only Azure's schedule is used, and a bare name like `gpt-4o` lists the date of each Azure version, because Azure code names a deployment, not a model version. Models that Azure's schedule page doesn't list are not reported in Azure files.
 - **Vertex AI** (`vertexai=True`, `vertexai`, `aiplatform`, `ChatVertexAI`, `GOOGLE_GENAI_USE_VERTEXAI`) vs the **Gemini API** (`GEMINI_API_KEY`, `google.generativeai`, `ChatGoogleGenerativeAI`): the platform the file uses wins. If the file shows neither, the Gemini API date is reported with a note about Vertex AI.
 - **Amazon Bedrock** IDs (`anthropic.claude-...-v1:0`, also with a `us.`/`eu.`/`global.` prefix) have their own dates, which differ by Region. The finding lists each Region group.
-- A model that is deprecated but has no shutdown date yet is LOW. A Gemini model that is already being routed to a newer model is LOW too: requests still work, on the newer model.
+- A model that is deprecated but has no shutdown date yet is LOW.
+- A model whose requests are redirected to another model is MEDIUM: requests still work, but a different model (often at a different price) answers them. Before the Gemini API's routing date the finding is HIGH, because that page asks you to review breaking API changes first. If the redirect target has itself reached end of life (xAI's `grok-code-fast-1` goes to `grok-build-0.1`), the finding is HIGH.
 
 A model name used as a prefix or substring test, as in `name.startswith("gpt-4")`, is not reported.
 
 LC003 reports a sampling setting only when reasoning effort is missing or set to something other than `"none"`. If reasoning effort comes from a variable, luna-check can't tell its value, so it reports nothing.
 
 ## Changes
+
+**0.5.0**
+- LC001 covers five more platforms, each from its official page: Mistral AI (48 models), DeepSeek (4), xAI (12), Cohere (12) and Groq (39).
+- New severity MEDIUM for models whose requests are silently redirected to another model (xAI, DeepSeek's `deepseek-v4-flash` names, and Gemini API models after their routing date, which were LOW before). MEDIUM never fails the run.
+- `models.json`: the `after_shutdown` field is now `behavior`, with the values `error` and `redirect` (was `routes`). New optional field `routes_effort` (xAI's reasoning effort for a redirect) and a top-level `word_ids` list.
+- Cohere IDs that are everyday words (`command`, `summarize`, ...) are reported only as a model setting's value.
+- A finding whose listed replacement has itself been retired since says so (for example DeepSeek lists `deepseek-v4-flash`, which now redirects to `deepseek-flash`).
 
 **0.4.2**
 - Fix: Azure OpenAI replacements no longer include the page's footnote markers (`gpt-5.6-sol^4^` is now `gpt-5.6-sol`). This affected 7 o-series entries in 0.4.0 and 0.4.1.

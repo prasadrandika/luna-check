@@ -15,7 +15,8 @@ def main(argv=None) -> int:
     p = argparse.ArgumentParser(
         prog="luna-check",
         description="Find code that uses retired or retiring AI models and API features "
-        "(OpenAI, Anthropic, Gemini API, Vertex AI, Azure OpenAI, Amazon Bedrock).",
+        "(OpenAI, Anthropic, Gemini API, Vertex AI, Azure OpenAI, Amazon Bedrock, "
+        "Mistral AI, DeepSeek, xAI, Cohere, Groq).",
     )
     p.add_argument("path", nargs="?", default=".", help="folder or file to scan (default: .)")
     # Kept so existing commands keep working. Since 0.2.0 every rule runs by default.

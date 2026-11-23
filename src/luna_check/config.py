@@ -241,7 +241,7 @@ def check_config(text: str, path: str, kind: str) -> list:
             seen.add((line, model))
             f = model_finding(path, line, rep, group in catalogs)
             f.message += f' (Config key "{key}".)'
-            if f.severity == rules.HIGH and rep.replacement and " or " not in rep.replacement:
+            if f.severity in (rules.HIGH, rules.MEDIUM) and rep.replacement and " or " not in rep.replacement:
                 f.fix = f'Set {key} to "{rep.replacement}".'
             out.append(f)
     return out
